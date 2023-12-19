@@ -28,7 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 ![image-20231213000201734](./assets/image-20231213000201734.png)
 
-​	 此时, 如果再次使用postman调用之前调用的接口, 因为没有进行重定向, 所以会报如下错误:
+​	 此时, 如果再次使用postman调用之前调用的接口, 因为spring security会判断出不是浏览器发出的请求, 所以不会进行重定向, 而是会报如下错误:
 
 ![image-20231213000331308](./assets/image-20231213000331308.png)
 
@@ -40,3 +40,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 ![image-20231213000758572](./assets/image-20231213000758572.png)
 
+
+
+### 四. spring security的基本使用
+
+​	 从上面可以看到, 只要引入依赖并开启了spring security的配置, spring security就开始生效了. 不过现在, 用的还是spring security默认的认证方式, 即
+
+- 如果是第一次访问(未登录状态): 跳转到登录页面, 此时user为用户名, 自动生成的字符串为密码. 输入即可重定向到刚刚请求的地址看到请求的响应.
+- 如果已经输入过一次账号密码, 则浏览器会保存一个JSESSIONID, 再次请求时会通过认证,  直接响应请求结果. 利用这一点, 也可以使用postman请求接口, 并得到响应.
+
+![image-20231219155706091](assets/image-20231219155706091.png)
+
+![image-20231219155736541](assets/image-20231219155736541.png)
+
+​	 显然这种方式十分不便, 每次启动项目都会产生一个随机的密码, 登录页面也是spring security提供的页面. 更多情况下, 需要我们自定义登录的账号和密码. 因此, 我们需要自定义spring security进行用户认证的相关组件.
