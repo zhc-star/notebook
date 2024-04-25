@@ -247,6 +247,31 @@ git clone https://github.com/libgit2/libgit2 mylibgit
 
 ##### 检查当前文件状态
 
+​	要查看哪些文件处于什么状态, 可以`git status`命令. 如果在克隆仓库后立即使用此命令, 会看到类似如下输出:
+
+```shell
+On branch master
+nothing to commit, working directory clean
+```
+
+​	这说明现在的工作目录相当干净. 也就是所有已跟踪文件在上次提交后都未更改过. 此外, 上面信息还表明, 当前目录下没有出现任何未跟踪状态文件, 否则Git会在这里列出来. 最后, 该命令还显示了当前所在分支, 并且这个分支同远程服务器上对应的分支没有偏离. 
+
+​	当前分支是“master”, 这是默认的分支名, 最新版本Git已将默认分支名改为“main”了.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
