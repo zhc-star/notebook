@@ -247,28 +247,258 @@ git clone https://github.com/libgit2/libgit2 mylibgit
 
 ##### 检查当前文件状态
 
-​	要查看哪些文件处于什么状态, 可以`git status`命令. 如果在克隆仓库后立即使用此命令, 会看到类似如下输出:
+​	要查看哪些文件处于什么状态, 可以`git status`命令. 如果在克隆仓库后立即使用此命令, 会看到类似如下==输出==:
 
 ```shell
 On branch master
 nothing to commit, working directory clean
 ```
 
-​	这说明现在的工作目录相当干净. 也就是所有已跟踪文件在上次提交后都未更改过. 此外, 上面信息还表明, 当前目录下没有出现任何未跟踪状态文件, 否则Git会在这里列出来. 最后, 该命令还显示了当前所在分支, 并且这个分支同远程服务器上对应的分支没有偏离. 
+​	这说明现在的工作目录==相当干净==. 也就是==所有已跟踪文件在上次提交后都未更改过==. 此外, 上面信息还表明, 当前目录下没有出现任何未跟踪状态文件, 否则Git会在这里列出来. 最后, 该命令还显示了当前所在分支, 并且这个分支同远程服务器上对应的分支没有偏离. 
 
 ​	当前分支是“master”, 这是默认的分支名, 最新版本Git已将默认分支名改为“main”了.
 
+​	在该项目下创建一个新的文件README后, 再次输入`git status`命令, 将会看到==一个新的未跟踪文件==:
+
+```
+On branch master
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+    	README
+nothing added to commit but untracked files present (use "git add" to track)
+```
+
+​	可以看到新建的README文件出现在`Untracked files`下面. 未跟踪的文件意味着Git在之前的快照(提交)中没有这些文件, Git不会自动将之纳入跟踪范围.
 
 
 
+##### 跟踪新文件
+
+​	使用`git add`开始跟踪一个文件.
+
+```shell
+git add README
+```
+
+​	此时, 再运行`git status`命令, 会看到README文件已被跟踪, 并处于暂存状态:
+
+```shell
+On branch master
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+	  new file: README
+```
+
+​	只要在`Changes to be committed`这行下面的, 就说明是已暂存状态. 如果此时提交, 那么该文件此时此刻的版本将被留存在历史记录中.
+
+​	`git add (files)`命令的参数可以是文件或者目录, 如果参数是目录的路径, 该命令将递归地跟踪该目录下的所有文件.
 
 
 
+##### 暂存已修改文件
+
+​	修改一个已被跟踪的文件. 然后运行`git status`. 将会看到如下内容:
+
+```shell
+On branch master
+Changes to be committed:
+	(use "git reset HEAD <file>..." to unstage)
+	   new file: README
+Changes not staged for commit:
+	(use "git add <file>..." to update what will be committed)
+	(use "git checkout -- <file>..." to discard changes in working directory)
+	   modified: CONTRIBUTING.md
+```
+
+​	文件CONTRIBUTING.md出现在`Changes not staged for commit:`这行下面, 说明已跟踪文件的内容发生了变化, 但还没有放到暂存区. 要暂存这次更新, 需要运行`git add`命令. ==这是个多功能命令: 可以用它开始跟踪新文件, 或者把已跟踪的文件放到暂存区, 还能用于合并时把有冲突的文件标记为已解决状态等.==将这个命令理解为==添加内容到下一次提交中==, 而不是==将一个文件添加到项目中==要更加合适. 现在运行`git add`把CONTRIBUTING.md放入暂存区, 再看一下`git status`输出:
+
+```shell
+On branch master
+Changes to be committed:
+	(use "git reset HEAD <file>..." to unstage)
+	  new file: README
+	  modified: CONTRIBUTING.md
+```
+
+​	现在暂存区中有两个文件, 下次提交时会一并记录到仓库. 如果此时再次修改CONTRIBUTING.md, 再次运行`git status`看看:
+
+```shell
+On branch master
+Changes to be committed:
+	(use "git reset HEAD <file>..." to unstage)
+	  new file: README
+	  modified: CONTRIBUTING.md
+Changes not staged for commit:
+	(use "git add <file>..." to update what will be committed)
+	(use "git checkout -- <file>..." to discard changes in working directory)
+	  modified: CONTRIBUTING.md
+```
+
+​	哈? CONTRIBUTING.md同时出现在暂存区和非暂存区. 是的, Git只暂存了刚才运行`git add`命令时的版本, 如果现在提交, CONTRIBUTING.md的版本是最后一次运行`git add`时的那个版本, 而不是在工作目录中的当前版本. 所以, 如果运行了`git add`之后又修改了文件, 需要重新运行`git add`把最新版本重新暂存起来, 调用`git add CONTRIBUTING.md` 后再次观察输出:
+
+```shell
+On branch master
+Changes to be committed:
+	(use "git reset HEAD <file>..." to unstage)
+	  new file: README
+	  modified: CONTRIBUTING.md
+```
+
+##### 状态简览
+
+​	从上面可以看到使用`git status`命令时的输出十分详细, 但是有时略显繁琐. 如果想要得到一种更为紧凑的格式输出, 则可以使用`git status -s`或者`git status --short`. 可能的输出如下:
+
+```shell
+ M README
+MM Rakefile   # 在工作区被修改提交单暂存区后又在工作区中被修改了, 所以在暂存区和工作区都有该文件被修改了的记录.
+A lib/git.rb
+M lib/simplegit.rb
+?? LICENSE.txt
+```
+
+各种标记代表的状态如下:
+
+- ??: 新添加的未跟踪文件
+- A: 新添加到暂存区中的文件
+- M: 修改过的文件. 右M表示文件被修改但还没有放入暂存区, 左M表示被修改了并放入暂存区.
 
 
 
+##### 忽略文件
+
+​	一个项目中总会有些文件无需纳入Git管理, 甚至不希望总是在未跟踪列表中看到它们. 比如日志文件, 编译过程中产生的文件等. 这时, 可以创建一个名为`.gitignore`的文件, 列出要忽略的文件模式:
+
+```shell
+*.[oa]   # 忽略所有.o或.结尾的文件. 一般这类对象文件和存档文件都是编译过程中出现的.
+*~   	 # 忽略所有以~结尾的文件. 如Emacs会以这样的文件名来保存副本.
+```
+
+​	最好养成一开始就设置好.gitignore文件的习惯, 以免将来误提交这类无用的文件.
+
+​	文件`.gitignore`的格式规范如下:
+
+- 所有空行或者以#开头的行都会被Git忽略
+- 可以使用标准的glob模式匹配
+- 匹配模式可以以(/)开头防止递归
+- 匹配模式可以以(/)结尾指定目录
+- 要忽略指定模式以外的文件或目录, 可以在模式前加上惊叹号(!)取反
 
 
+
+​	所谓的glob模式是shell所使用的简化了的正则表达式.
+
+1. \* 匹配0个或多个任意字符
+2. [abc] 匹配任何一个列在方括号中的字符(要么a, 要么b, 要么c)
+3. ? 只匹配一个任意字符
+4. \- 例如[0-9], 所有在这两个字符范围内的都可以匹配, 这里表示匹配所有0到9的数字字符
+5. ** 匹配任意中间目录, 如a/**/z, 可以匹配a/z, a/b/z, 或者a/b/c/z等
+
+
+
+​	GitHub有一个十分详细的针对各种项目及语言的.gitignore文件列表, 可以在https://github.com/github/gitignore找到它.
+
+
+
+##### 查看已暂存和未暂存的修改
+
+​	`git status`命令看到有文件修改时, 想知道具体修改了什么地方. 可以使用`git diff`命令.
+
+​	加入此时有已暂存的修改README和未暂存的修改CONTRIBUTING.md:
+
+```shell
+On branch master
+Changes to be committed:
+	(use "git reset HEAD <file>..." to unstage)
+	  modified: README
+Changes not staged for commit:
+	(use "git add <file>..." to update what will be committed)
+	(use "git checkout -- <file>..." to discard changes in working directory)
+	  modified: CONTRIBUTING.md
+```
+
+
+
+​	要查看尚未暂存的文件更新了哪些部分, 可以直接输入`git diff`
+
+```shell
+diff --git a/CONTRIBUTING.md b/CONTRIBUTING.md
+index 8ebb991..643e24f 100644
+--- a/CONTRIBUTING.md
++++ b/CONTRIBUTING.md
+@@ -65,7 +65,8 @@ branch directly, things can get messy.
+Please include a nice description of your changes when you submit your PR;
+if we have to read the whole diff to figure out why you're contributing in the first place, you're less likely to get feedback and have your change
+-merged in.
++merged in. Also, split your changes into comprehensive chunks if your
+patch is
++longer than a dozen lines.
+If you are starting to work on a particular area, feel free to submit a PR that highlights your work in progress (and note in the PR title that it's
+```
+
+​	此命令比较的是==工作目录中当前文件==和==暂存区域快照==之间的差异, 也就是修改之后还没有暂存起来的变化内容.
+
+​	若要查看已暂存的将要提交的内容, 可以用`git diff --cached`命令. (Git1.6.1及更高版本还允许使用`git diff --staged`, 效果是相同的, 但更好记)
+
+​	
+
+​	如果上面的内容看起来还是很不清楚, 可以重点理解以下两句话:
+
+1. git diff比较的是工作目录下的当前文件和暂存区域快照之间的差异, 如果暂存区没有对应的文件, 就与上一次提交的文件比较
+2. git diff --cached比较的是暂存区中的文件和上一次提交的文件的差异
+
+
+
+​	除了使用`git diff`来分析文件差异, 如果想要通过图形化的方式或其它格式输出方式的话, 可以使用`git difftool`命令来使用Araxis, emerge或vimdiff等软件输出diff分析结果. 使用`git difftool --tool-help`查看你的系统支持哪些Git Diff插件.
+
+
+
+##### 提交更新
+
+​	先调用`git status`查看有没有什么已修改的文件或者新创建的文件还没有`git add`到暂存区, 将要提交的文件及文件修改提交到暂存区后, 就可以调用`git commit`来进行提交.
+
+​	如果只调用`git commit`, 则会启动文本编辑器以输入本次提交的说明. (默认启动shell的环境变量`$EDITOR`所指定的软件, 一般是vim或emacs, 也可以按照之前介绍的方式`git config --global core.editor`来设定自己喜欢的编辑软件.)
+
+​	编辑器显示类似如下的信息:
+
+```shell
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Changes to be committed:
+# new file: README
+# modified: CONTRIBUTING.md
+#~~~
+".git/COMMIT_EDITMSG" 9L, 283C
+```
+
+​	默认的提交信息包含最后一次运行`git status`的输出, 如果想要在编辑器里显示更详细的修改信息, 可以使用`-v`选项. 当然, 也可以使用`-m`选项, 将提交信息与命令放在一行, 直接完成提交.
+
+​	完成提交后将打印如下信息:
+
+```shell
+git commit -m "Story 182: Fix benchmarks for speed"
+[master 463dc4f] Story 182: Fix benchmarks for speed
+ 2 files changed, 2 insertions(+)
+ create mode 100644 README
+```
+
+​	其中包含了在哪个分支(master)提交的, 本次提交的完整SHA-1校验和是什么(463dc4f), 以及在本次提交中, 有多少文件修改过, 多少行的添加和删改.
+
+​	每一次运行提交操作, 都是对项目做一次快照, 以后可以回到这个状态, 或者进行比较.
+
+
+
+##### 跳过使用暂存区域
+
+​	尽管使用暂存区域的方式, 可以精心准备要提交的内容, 但有时候会略显繁琐. Git提供了一个跳过使用暂存区域的方式, 只要在提交的时候, 给`git commit`加上`-a`选项, Git就会自动把所有已跟踪文件暂存起来一并提交, 从而==跳过已修改文件的`git add`步骤==(未跟踪的文件需要`git add`来进行跟踪).
+
+```shell
+git commit -a -m 'added new benchmarks'
+```
+
+
+
+##### 移除文件
 
 
 
