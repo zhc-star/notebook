@@ -773,8 +773,8 @@ $ git remote show origin
 	Push  URL: https://github.com/schacon/ticgit   
 	HEAD branch: master   
 	Remote branches:     
-		master                               tracked     
-		dev-branch                           tracked   
+		master tracked     
+		dev-branch tracked   
 	Local branch configured for 'git pull':     
 		master merges with remote master   
 	Local ref configured for 'git push':     
