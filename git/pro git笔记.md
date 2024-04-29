@@ -1065,15 +1065,355 @@ $ git log --oneline --decorate --graph --all
 
 ### 分支的新建与合并
 
+​	实际工作中, 可能会有如下步骤:
 
+1. 开发某个网站
+2. 为实现某个新的需求, 创建一个分支
+3. 在这个分支上开展工作
+
+
+
+​	正在此时, 你突然街道一个电话说有个很严重的bug需要修复, 将按照如下方式处理:
+
+1. 切换到你的线上分支(production branch)
+2. 为这个紧急任务新建一个分支, 并在其中修复它
+3. 在测试通过后, 切回线上分支, 然后合并这个修补分支, 最后将改动推送到线上分支
+4. 切回最初工作的分支上, 继续工作
+
+
+
+####  新建分支
+
+​	首先, 假设目前的工作状态如下:
+
+![image-20240429094914423](assets/image-20240429094914423.png)
+
+
+
+​	现在, 准备解决公司使用的问题追踪系统中的#53问题, 想要新建一个分支并同时切换到那个分支上, 你可以运行一个带有`-b`参数的`git checkout`命令:
+
+```shell
+$ git checkout -b iss53
+Switched to a new branch "iss53"
+```
+
+​	它是如下两条命令的简写:
+
+```shell
+$ git branch iss53
+$ git checkout iss53
+```
+
+![image-20240429095314652](assets/image-20240429095314652.png)
+
+​	针对这个问题做了一些工作后, 进行了提交. `iss53`分支不断向前推进, 因为你已经检出了该分支.
+
+![image-20240429095502189](assets/image-20240429095502189.png)
+
+​	现在, 接到那个电话, 有个紧急问题需要你来解决. 有了Git的帮助, 就==不用把这个紧急问题和`iss53`的修改混在一起==, 也不用花大力气来还原关于#53问题的修改, 然后再添加关于这个紧急问题的修改, 最后将这个修改提交到线上分支. 你要做的仅仅是切换回`master`分支.
+
+​	有一点要注意, 切分支之前, 要留意你的工作目录和暂存区里那些没有被提交的修改, 它可能和你即将检出的分支产生冲突从而阻止Git切换分支. 最好的方法是, 在切换分支前, 保持一个好的干净的状态. 有一些方法可以绕过这个问题(保存进度stashing和修补提交commit amending), 在储藏和清理中会学习这两个命令. 现在暂且假设已经把你的修改全部提交了. 然后进行分支切换.
+
+```shell
+$ git checkout master
+Switched to branch 'master'
+```
+
+​	切回之后, ==工作目录和在开始#53问题之前一模一样==, 现在可以专心修复紧急问题了.  请牢记, 当切换分支时, ==Git会重置你的目录==, 使其看起来像==回到了你在那个分支上最后一次提交的样子==. 
+
+​	接下来为了解决该紧急问题, 建立一个针对该问题的分支(hotfix branch), 在该分支上工作并解决问题:
+
+```shell
+$ git checkout -b hotfix
+Switched to a new branch 'hotfix'
+$ vim index.html
+$ git commit -a -m 'fixed the broken email address'
+[hotfix 1fb7853] fixed the broken email address
+1 file changed, 2 insertions(+)
+```
+
+![image-20240429102910603](assets/image-20240429102910603.png)
+
+​	进行测试通过后, 将其合并回`master`分支来部署到线上, 可以使用`git merge`.
+
+```shell
+$ git checkout master
+$ git merge hotfix
+Updating f42c576..3a0874c
+Fast-forward
+  index.html | 2 ++
+  1 file changed, 2 insertions(+)
+```
+
+​	这里需要注意执行`git merge`之后的快进(fast-forward)这个词, 由于当前`master`分支所指向的提交是`hotfix`的直接上游, 所以Git只是简单地将指针向前移动. 也就是说, 当执行合并操作时, 如果顺着一个分支下去是另一个分支, 那么Git在合并时, 只会简单地移动指针. 因为这种情况下的合并操作没有需要解决的分歧, 这就叫做"快进(fase-foward)".
+
+![image-20240429103738430](assets/image-20240429103738430.png)
+
+​	解决完这个紧急问题后, 准备回到被打断之前的工作中, 不过在此之前, 你==应该先删除`hotfix`分支==, 因为你已经不再需要它了, `master`分支已经指向了同一个位置. 可以使用带`-d`选项的`git branch`命令来删除分支.
+
+```shell
+$ git branch -d hotfix
+Deleted branch hotfix (3a0874c).
+```
+
+
+
+​	现在可以切回针对#53问题的那个分支.
+
+```shell
+$ git checkout iss53
+Switched to branch "iss53"
+$ vim index.html
+$ git commit -a -m 'finished the new footer [issue 53]'
+[iss53 ad82d7a] finished the new footer [issue 53]
+1 file changed, 1 insertion(+)
+```
+
+![image-20240429104442288](assets/image-20240429104442288.png)
+
+​	==在`hotfix`分支上做的工作并没有包含到`iss53`分支中, 如果你需要拉取`hotfix`分支所做的修改, 可以使用`git merge master`命令将`master`分支合并入`iss53`分支, 或者也可以等到`iss53`分支完成其使命, 再将其合并回master分支.==
+
+
+
+#### 分支的合并
+
+​	假设已经修正了#53的问题, 打算将你的工作合并入`master`分支, 这和之前向`master`合并`hotfix`分支差不多, 只需要==检出到==想要合并入的分支, 然后运行`git merge`命令. 
+
+```shell
+$ git checkout master
+Switched to branch 'master'
+$ git merge iss53
+Merge made by the 'recursive' strategy.
+index.html | 1 +
+1 file changed, 1 insertion(+)
+```
+
+​	这和之前的合并有点不一样, 这是因为你的开发历史从一个更早的地方开始分叉开来(diverged). 因为`master`分支所在提交并不是`iss53`所在提交的直接上游, Git不得不做一些额外工作. ==出现这种情况的时候, Git会使用两个分支的末端所指的快照(`C4`和`C5`)以及这两个分支的工同祖先(`C2`), 做一个简单的三方合并.==
+
+![image-20240429111013304](assets/image-20240429111013304.png)
+
+​	和之前的快进不同, 这里Git将此次三方合并的结果做了一个新的快照并且自动创建了一个新的提交指向它. 这个被称作一次合并提交, 它的特别之处在于他不止有一个父提交.
+
+![image-20240429111353773](assets/image-20240429111353773.png)
+
+
+
+​	需要指出的是, Git会自行决定选取哪一个提交作为最优的共同祖先, 并以此作为合并的基础. 更古老的CVS系统或者SVN(1.5之前)需要用户自己选择最佳的合并基础. Git的这个优势使其在合并操作上比其他系统要简单很多.
+
+​	合并进来之后, 同样不再需要`iss53`分支了. 现在可以==在任务追踪系统中关闭此项任务==, 并删除这个分支.
+
+```shell
+$ git branch -d iss53
+```
+
+
+
+#### 遇到冲突时的分支合并
+
+​	有些时候合并操作不会如此顺利. 如果在两个分支中对==同一个文件的同一个部分==进行了不同的修改, Git就无法干净的合并它们. 如果你对#53问题的修改和紧急问题的修改都涉及到同一个文件的同一处, 在合并它们时就会产生合并冲突:
+
+```shell
+$ git merge iss53
+Auto-merging index.html
+CONFLICT (content): Merge conflict in index.html
+Automatic merge failed; fix conflicts and then commit the result.
+```
+
+​	此时, Git做了合并, 但是没有自动创建一个新的合并提交. Git会暂停下来, 等待你去解决合并产生的冲突. 你可以在合并冲突后的任意时刻用`git status`命令来查看那些==因包含合并冲突而处于未合并(unmerged)状态==的文件:
+
+```shell
+$ git status
+On branch master
+You have unmerged paths.
+	(fix conflicts and run "git commit")
+Unmerged paths:
+	(use "git add <file>..." to mark resolution)
+		both modified: index.html
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+​	Git会在有冲突的文件中加入标准的==冲突解决标记==, 以方便你打开合并冲突的文件来手动解决冲突. 含有冲突的文件中会包含一些如下的特殊区段:
+
+```shell
+<<<<<<< HEAD:index.html
+<div id="footer">contact : email.support@github.com</div>
+=======
+<div id="footer">
+  please contact us at support@github.com
+</div>
+>>>>>>> iss53:index.html
+```
+
+​	这表示`HEAD`所指的版本, 对于目前的例子来说也就是`master`分支所在的位置在这个区段的上半部分, 而`iss53`分支所指示的版本在下半部分. 为了解决冲突, 必须选择使用由`=======`分割的两个部分中的一个, 或者也可以自行决定合并这些内容. 例如, 你可以通过把这段内容换成下面的样子来解决冲突:
+
+```shell
+<div id="footer">
+please contact us at email.support@github.com
+</div>
+```
+
+​	上述的冲突解决方案仅保留了其中一个分支的修改, 并且`<<<<<<<`, `=======`,`>>>>>>>`这些行被完全删除了. 在解决了这些文件的冲突后, 对每个文件使用`git add`命令来将其标记为冲突已解决. 一旦暂存这些原本有冲突的文件, Git就会将它们标记为冲突已解决.
+
+​	如果你想使用图形化工具来解决冲突, 可以运行`git mergetool`. 它会启动一个合适的可视化合并工具, 并带领你一步一步解决这些冲突.
+
+​	你可以再次运行`git status`来确认所有的合并冲突都已被解决:
+
+```shell
+$ git status
+On branch master
+All conflicts fixed but you are still merging.
+	(use "git commit" to conclude merge)
+Changes to be committed:
+	modified: index.html
+```
+
+
+
+​	这时可以输入`git commit`来完成合并提交. 默认情况下提交信息看起来像下面这个样子:
+
+```txt
+Merge branch 'iss53'
+Conflicts:
+index.html
+#
+# It looks like you may be committing a merge.
+# If this is not correct, please remove the file
+# .git/MERGE_HEAD
+# and try again.
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# All conflicts fixed but you are still merging.
+#
+# Changes to be committed:
+# modified: index.html
+#
+```
+
+​	如果你觉得还不够充分, 可以修改上述信息, 添加一些细节给未来检视这个合并的读者一些帮助, 告诉他们你是如何解决合并冲突的, 以及理由是什么.
 
 
 
 ### 分支管理
 
+​	现在已经创建, 合并, 删除了一些分支, 接下来了解一些常用的分支管理工具. 
+
+​	`git branch`不只可以创建和删除分支. 如果不加任何参数地运行它, 会得到当前所有分支的一个列表:
+
+```shell
+$ git branch
+  iss53
+* master   # * 代表现在检出的那一个分支. 也就是当前HEAD指针指向的分支
+  testing
+```
+
+​	如果要查看每一个分支的最后一次提交, 可以运行`git branch -v`命令:
+
+```shell
+$ git branch -v
+  iss53 93b412c fix javascript issue
+* master 7a98805 Merge branch 'iss53'
+  testing 782fd34 add scott to the author list in the readmes
+```
+
+
+
+​	如果想要查看已经合并或者尚未合并到当前分支的分支可以使用`--merged`与`--no-merged`选项.
+
+```shell
+$ git branch --merged
+  iss53
+* master
+```
+
+​	这个列表中没有`*`号的分支通常可以通过`-d`选项删除掉, 因为你已经将它们合并到了当前分支, 所以不会失去任何东西.
+
+```shell
+$ git branch --no-merged
+  testing
+```
+
+​	这里显示了还未合并到当前分支的分支, 如果要使用`-d`选项删除它会失败:
+
+```shell
+$ git branch -d testing
+error: The branch 'testing' is not fully merged.
+If you are sure you want to delete it, run 'git branch -D testing'.
+```
+
+​	如果确实想删除并丢掉那些工作, 可以使用`-D`选项强制删除.
+
+
+
 ### 分支开发工作流
 
+​	这里会介绍一些常见的利用分支开发的工作流程. 这是一些典型的工作模式.
+
+#### 长期分支
+
+​	在整个项目开发周期的不同阶段, 你可以同时拥有多个开放的分支, 可以定期把某些特性分支合并入其他分支中.
+
+​	比如只在`master`分支上保留完全稳定的代码, 还有一些名为`develop`或`next`的平行分支, 被用来做后续开发或者测试稳定性, 这些分支不必保持绝对稳定, 但是一旦达到稳定状态, 它们就可以被合并入`master`分支了.
+
+​	稳定分支的指针总是在提交历史中落后一大截, 而前沿分支的指针往往比较靠前.
+
+![image-20240429141834059](assets/image-20240429141834059.png)
+
+​	通常把他们想象成流水线(work silos)可能更好理解一点, 那些经过测试考研的提交会被遴选到更加稳定的流水线上去.
+
+![image-20240429142947152](assets/image-20240429142947152.png)
+
+​	一些大型项目还有一个`proposed(建议)`或`pu:proposed updates(建议更新)`分支, 它可能因包含一些不成熟的内容而不能进入`next`或`master`分支.
+
+​	这么做的目的是使你的分支具有不同级别的稳定性, 当它们具有一定程度的稳定性后, 再把它们合并入具有更高级别稳定性的分支中. 
+
+
+
+#### 特性分支
+
+​	特性分支是一种短期分支, 对任何规模的项目都适用, 它被用来实现单一特性或其相关工作. 
+
+​	考虑一个例子, 你在`master`分支上工作到`C1`, 这时为了解决一个问题而新建`iss91`分支, 在`iss91`分支上工作到`C4`, 然后对于那个问题你又有了新的想法, 于是又创建了一个`iss91v2`分支试图用另一种方法解决那个问题, 接着又回到`master`分支工作了一会, 你又冒出了一个不太确定的想法, 你便在C10的时候新建一个dumbidea分支, 并在上面做些实验. 提交历史看起来像下面这个样子:
+
+![image-20240429145126128](assets/image-20240429145126128.png)
+
+​	最后, 你决定使用第二个方案来解决那个问题, 即使用在`iss91v2`分支中的方案, 另外, 你将`dumbidea`分支拿给同事看后, 结果发现这是个==惊人之举==. 这时, 你可以抛弃`iss91`分支(即丢弃`C5`和`C6`提交), 然后把另外两个分支合并入主干分支. 最后提交历史看起来如下:
+
+![image-20240429145446034](assets/image-20240429145446034.png)
+
+
+
 ### 远程分支
+
+​	远程引用是对仓库的引用(指针), 包括分支, 标签等等. 可以通过`git ls-remote (remote)`来显示地获得远程引用的完整列表, 或者通过`git remote show (remote)`获得远程分支的更多信息. 不过, 一个更常见的做法是利用远程跟踪分支.
+
+​	==远程跟踪分支是远程分支状态的引用.== 它们是你==不能移动的本地引用==, 当你做任何网络通信操作时, 它们会自动移动. 远程跟踪分支像是你上次连接到远程仓库时, 那些分支所处状态的书签. 
+
+​	它们以`(remote)/(branch)`形式命名. 例如, 如果你想看最近一次与远程仓库`origin`通信时`master`分支的状态, 可以查看`origin/master`分支.
+
+​	例子: 假设你的网络里有一个在`git.ourcompany.com`的Git服务器. 如果你从这里克隆, Git的`clone`命令会为你自动将其命名为`origin`, 拉取它的所有数据, 创建一个指向它的`master`分支的指针, 并且在本地将其命名为`origin/master`. Git也会给你一个与origin的`master`分支在指向同一个地方的本地`master`分支, 这样你就有工作的基础. 
+
+​	`git int`会指定`master`做为默认的起始分支的名字; `git clone`会指定`origin`作为默认的远程仓库的名字. 如果运行`git clone -o booyah`, 那么远程仓库名字会被指定为`booyah`.
+
+![image-20240429155525864](assets/image-20240429155525864.png)
+
+​	如果你在本地`master`分支上进行了提交的同时, 远程仓库的`master`被其他人的提交更新了, 那么你的提交历史将向不同方向前进.
+
+![image-20240429155915721](assets/image-20240429155915721.png)
+
+​	如果要同步你本地的工作, 运行`git fetch origin`命令. 从远程服务器抓取本地没有的数据, 并且更新本地数据库, ==移动`origin/master`指针指向新的, 更新后的位置==.
+
+![image-20240429160450104](assets/image-20240429160450104.png)
+
+
+
+
+
+
+
+
+
+
 
 ### 变基
 
