@@ -1407,7 +1407,7 @@ If you are sure you want to delete it, run 'git branch -D testing'.
 
 
 
-
+​	为了演示多个远程仓库与远程分支的情况, 我们假定有另一个内部Git服务器, 仅用于你的sprint小组的开发工作. 这个服务器位于`git.team1.ourcompany.com`. 你可以运行`git remote add` 命令添加一个新的远程仓库引用到当前的项目. 将这个远程仓库命名为`teamone`, 将其作为整个URL的缩写.
 
 
 
