@@ -1409,7 +1409,123 @@ If you are sure you want to delete it, run 'git branch -D testing'.
 
 ​	为了演示多个远程仓库与远程分支的情况, 我们假定有另一个内部Git服务器, 仅用于你的sprint小组的开发工作. 这个服务器位于`git.team1.ourcompany.com`. 你可以运行`git remote add` 命令添加一个新的远程仓库引用到当前的项目. 将这个远程仓库命名为`teamone`, 将其作为整个URL的缩写.
 
+![image-20240430101045771](assets/image-20240430101045771.png)
 
+​	现在可以运行`git fetch teamone`来抓取远程仓库`teamone`有而本地没有的数据. ==因为那台服务器上现有的数据是`origin`服务器上的一个子集, 所以Git并不会抓取数据而是会设置远程跟踪分支`teamone/master`指向`teamone`的`master`分支.==
+
+![image-20240430141544492](assets/image-20240430141544492.png)
+
+
+
+#### 推送
+
+​	当想要公开分享一个分支时, 需要将其推送到有写入权限的远程仓库上. 
+
+​	如果希望和别人一起在名为`serverfix`的分支上工作, 你可以像推送第一个分支那样推送它. 运行`git push (remote) (branch)`:
+
+```shell
+$ git push origin serverfix
+Counting objects: 24, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (15/15), done.
+Writing objects: 100% (24/24), 1.91 KiB | 0 bytes/s, done.
+Total 24 (delta 2), reused 0 (delta 0)
+To https://github.com/schacon/simplegit
+  * [new branch] serverfix -> serverfix
+```
+
+
+
+​	注意, 这里你可能已经对每次推送时输入用户名与密码感到了厌烦. 如果不想在每一次推送时都设置用户名密码, 可以设置一个'credential cache'(验证缓存). 最简单的方式就是将其保存在内存中几分钟, 可以简单地运行`git config --global credential.helper cache`来设置它.
+
+​	
+
+​	下一次其他协作者从服务器上抓取数据时, 他们会在本地生成一个远程分支`origin/serverfix`, 指向服务器的`serverfix`分支:
+
+```shell
+$ git fetch origin
+remote: Counting objects: 7, done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 3 (delta 0), reused 3 (delta 0)
+Unpacking objects: 100% (3/3), done.
+From https://github.com/schacon/simplegit
+  * [new branch] serverfix -> origin/serverfix
+```
+
+
+
+​	要特别注意的一点是当抓取到新的远程跟踪分支时, 本地不会自动生成一份可编辑的副本(拷贝). 也就是, 在这种情况下, 不会有一个新的`serverfix`分支, 只有一个不可以修改的`origin/serverfix`指针.
+
+​	可以运行`git merge origin/serverfix`将这些工作合并到当前所在的分支. 如果想要在自己的`serverfix`分支上工作, 可以将其建立在远程跟踪分支之上:
+
+```shell
+$ git checkout -b serverfix origin/serverfix
+Branch serverfix set up to track remote branch serverfix from origin.
+Switched to a new branch 'serverfix'
+```
+
+​	这会给你一个用于工作的本地分支, 并且起点位于`origin/serverfix`.
+
+
+
+#### 跟踪分支
+
+​	跟踪分支是与远程分支有直接关系的本地分支. 如果在一个跟踪分支上输入`git pull`, Git能自动识别去哪个服务器上抓取, 合并到哪个分支.
+
+​	当克隆一个仓库时, 它通常会自动地创建一个跟踪`origin/master`的`master`分支. 也可以手动设置其它的跟踪分支, 或者不跟踪`master`分支. 最简单的就是刚刚看到的例子`git checkout -b [branch] [remotename]/[branch]`. 这是一个十分常用的操作所以Git提供了`--track`快捷方式:
+
+```shell
+$ git checkout --track origin/serverfix
+Branch serverfix set up to track remote branch serverfix from origin.
+Switched to a new branch 'serverfix'
+```
+
+
+
+​	设置已有的本地分支跟踪一个刚刚拉取下来的远程分支, 或者想要修改正在跟踪的上游分支, 可以在任意时间使用`-u`或`--set-upstream-to`选项运行`git branch`来显式地设置:
+
+```shell
+$ git branch -u origin/serverfix
+Branch serverfix set up to track remote branch serverfix from origin.
+```
+
+​	当设置好跟踪分支后, 可以通过`@{upstream}`或`@{u}`快捷方式来引用它. 所以在`master`分支时并且它正在跟踪`origin/master`时, 如果愿意的话可以使用`git merge @{u}`来代替`git merge origin/master`.
+
+​	查看设置的所有跟踪分支, 可以使用`git branch`的`-vv`选项. 这会将所有的本地分支列出来并且包含更多的信息, 比如每一个分支正在跟踪哪个远程分支与本地分支是否是领先, 落后或是都有.
+
+```shell
+$ git branch -vv
+  iss53 7e424c3 [origin/iss53: ahead 2] forgot the brackets
+  master 1ae2a45 [origin/master] deploying index fix
+* serverfix f8674d9 [teamone/server-fix-good: ahead 3, behind 1] this should do it
+  testing 5ea463a trying something new
+```
+
+​	`ahead`表示领先, `behind`表示落后.
+
+​	需要重点注意的一点是这些数字的值来自于你从每个服务器上最后一次抓取的数据. 这个命令并没有连接服务器, 它只会告诉你关于本地缓存的服务器数据. 如果想要统计最新的领先与落后数字, 需要在运行此命令前抓取所有的远程仓库. `git fetch --all; git branch -vv`.
+
+
+
+#### 拉取
+
+​	当`git fetch`命令从服务器上抓取本地没有的数据时, 它并不会修改工作目录中的内容. 它只会获取数据, 然后让你自己合并. 
+
+​	`git pull`在大多数情况下它的含义是一个`git fetch`紧接着一个`git merge`命令. 如果有一个分支设置好跟踪哪个远程分支, `git pull`会查找当前分支所跟踪的服务器与分支, 从服务器上抓取数据然后尝试合并入那个远程分支.
+
+​	Pro Git的作者建议单独显式地使用`fetch`和`merge`命令更好.
+
+
+
+#### 删除远程分支
+
+​	如果你确保某一个远程分支不会再被使用了, 可以通过带有`--delete`的`git push`命令来删除一个远程分支. 注意这不会删除本地分支, 删除本地分支的命令前面学习过.
+
+```shell
+$ git push origin --delete serverfix
+To https://github.com/schacon/simplegit
+ - [deleted] serverfix
+```
 
 
 
@@ -1417,7 +1533,51 @@ If you are sure you want to delete it, run 'git branch -D testing'.
 
 ### 变基
 
+​	在Git中整合来自不同分支的修改主要有两种方式: `merge`和`rebase`.
 
+
+
+#### 变基的基本操作
+
+​	先来回顾一下合并.
+
+![image-20240430165612985](assets/image-20240430165612985.png)
+
+​	之前面对这样的分叉, 我们使用的是`merge`命令. 它会把两个分支的最新快照(C3和C4)以及二者最近的共同祖先(C2)进行三方合并, 合并的结果是生成一个新的快照(并提交).
+
+![image-20240430165753082](assets/image-20240430165753082.png)
+
+​	其实, 还有一种做法: ==你可以提取在`C4`中引入的补丁和修改, 然后在`C3`的基础上再应用一次. 在Git中, 这种操作就叫做变基.== 你可以使用`rebase`命令将提交到某一分支上的所有修改都移至另一分支上, 就好像"重新播放"一样.
+
+
+
+#### 更有趣的变基例子
+
+
+
+
+
+
+
+#### 变基的风险
+
+
+
+
+
+
+
+#### 用变基解决变基
+
+
+
+
+
+
+
+
+
+#### 变基VS合并
 
 
 
