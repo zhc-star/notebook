@@ -1995,13 +1995,174 @@ NrRFi9wrf+M7Q== schacon@mylaptop.local
 
 ### 配置服务器
 
-​	接下来看看如何配置服务器端的SSH访问.
+​	接下来看看如何配置服务器端的SSH访问. 本例中, 我们将使用`authorized_keys`方法来对用户进行认证. 同时假设操作系统是标准的Linux发行版, 比如Ubuntu. 首先, 创建一个操作系统用户`git`, 并为其建立一个`.ssh`目录.
+
+```shell
+$ sudo adduser git 
+$ su git 
+$ cd 
+$ mkdir .ssh && chmod 700 .ssh 
+$ touch .ssh/authorized_keys && chmod 600 .ssh/authorized_keys
+```
+
+​	接着, 我们需要为系统用户`git`的`authorized_keys`文件添加一些开发者SSH公钥. 假如, 我们已经获得了一些受信任的公钥, 并保存在临时文件中:
+
+```shell
+$ cat /tmp/id_rsa.john.pub 
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCB007n/ww+ouN4gSLKssMxXnBOvf9LGt4L ojG6rs6hPB09j9R/T17/x4lhJA0F3FR1rP6kYBRsWj2aThGw6HXLm9/5zytK6Ztg3RPKK+4k Yjh6541NYsnEAZuXz0jTTyAUfrtU3Z5E003C4oxOj6H0rfIF1kKI9MAQLMdpGW1GYEIgS9Ez Sdfd8AcCIicTDWbqLAcU4UpkaX8KyGlLwsNuuGztobF8m72ALC/nLF6JLtPofwFBlgc+myiv O7TCUSBdLQlgMVOFq1I2uPWQOkOWQAHukEOmfjy2jctxSDBQ220ymjaNsHT4kgtZg2AYYgPq dAv8JggJICUvax2T9va5 gsg-keypair
+```
+
+​	将这些公钥加入系统用户`git`的`.ssh`目录下`authorized_keys`的末尾:
+
+```shell
+$ cat /tmp/id_rsa.john.pub >> ~/.ssh/authorized_keys 
+$ cat /tmp/id_rsa.josie.pub >> ~/.ssh/authorized_keys 
+$ cat /tmp/id_rsa.jessica.pub >> ~/.ssh/authorized_keys
+```
+
+​	现在我们来为开发者==新建==一个空仓库, 可以借助带`--bare`选项的`git init`命令做到, 该命令在初始化仓库时不会创建工作目录:
+
+```shell
+$ cd /opt/git 
+$ mkdir project.git 
+$ cd project.git 
+$ git init --bare 
+Initialized empty Git repository in /opt/git/project.git/
+```
+
+​	接着John, Josie, Jessica中的任意一人可以将他们项目的最初版本推送到这个仓库中. 他只需将此仓库设置为项目的远程仓库并向其推送分支. ==请注意, 每添加一个新项目, 都需要有人登录服务器取得shell, 并创建一个裸仓库.== 我们假定上述服务器使用`gitserver`作为主机名, 且该服务器运行在内网, 并且你已经在DNS配置中将`gitserver`指向此服务器. 假定`myproject`是已有的本地项目:
+
+```shell
+# on John's computer 
+$ cd myproject 
+$ git init 
+$ git add .
+$ git commit -m 'initial commit' 
+$ git remote add origin git@gitserver:/opt/git/project.git 
+$ git push origin master
+```
+
+​	此时, 其他开发者可以克隆此仓库, 并推送各自的改动, 步骤很简单:
+
+```shell
+$ git clone git@gitserver:/opt/git/project.git 
+$ cd project 
+$ vim README 
+$ git commit -am 'fix for the README file' 
+$ git push origin master
+```
+
+​	通过这种方法, 你可以快速搭建一个具有读写权限, 面向多个开发者的Git服务器.
+
+​	注意, 目前所有获得授权的开发者用户都能以系统用户 `git`的身份登录服务器从而获得一个普通shell. 如果想要对此加以限制, 则需要修改`passwd`文件中`git`用户所对应的shell值. 
+
+​	借助一个名为`git-shell`的受限shell工具, 可以方便地将用户`git`的活动限制在与Git相关的范围内. 该工具随Git软件包一同提供. 如果将`git-shell`设置为用户`git`的登录shell, 那么用户`git`便不能获得此服务器的普通shell访问权限. 若要使用`git-shell`, 需要用它替换掉bash或csh, 使其成为系统用户的登录shell. 为进行上述操作, 首先必须确保`git-shell`已存在于`/etc/shells`文件中:
+
+```shell
+$ cat /etc/shells   # see if `git-shellìs already in there.  If not...
+$ which git-shell   # make sure git-shell is installed on your system.
+$ sudo vim /etc/shells  # and add the path to git-shell from last command
+```
+
+​	现在可以使用`chsh <username>`命令修改任一系统用户的shell:
+
+```shell
+$ sudo chsh git  # and enter the path to git-shell, usually: /usr/bin/gitshell
+```
+
+​	这样, 用户`git`就只能利用SSH连接对Git仓库进行推送和拉取操作, 而不能登录机器并取得普通shell. 如果试图登录, 你会发现尝试被拒绝, 像这样:
+
+```shell
+$ ssh git@gitserver 
+fatal: Interactive git shell is not enabled.
+hint: ~/git-shell-commands should exist and have read and execute access.
+Connection to gitserver closed.
+```
+
+​	现在, 网络相关的Git命令依然可以正常工作, 但是开发者用户已经无法得到一个普通shell了. 正如输出信息所提示的, 你也可以在`git`用户的家目录下建立一个目录, 来对`git-shell`命令进行一定程度的自定义. 比如, 可以限制掉某些本应被服务器接受的Git命令, 或者对刚才的SSH拒绝登录信息进行自定义, 这样, 当有开发者用户以类似方式尝试登录时, 便会看到你的信息. 要了解更多有关自定义shell的信息, 请运行`git help shell`.
 
 
 
 ### Git守护进程
 
+​	接下来通过Git协议建议一个基于守护进程的仓库. 对于快速且无需授权的Git数据访问, 这是一个理想之选. 
+
+​	Git协议十分容易设定, 通常, 只需要以守护进程的形式运行该命令:
+
+```shell
+git daemon --reuseaddr --base-path=/opt/git/ /opt/git/
+```
+
+​	`--reuseaddr`允许服务器在无需等待旧连接超时的情况下重启, `--base-path`选项允许用户在未完成指定路径的条件下克隆项目, 结尾的路径将告诉Git守护进程从何处寻找仓库来导出. 如果有防火墙正在运行, 需要开放端口9418的通信权限.
+
+​	在Ubuntu上也可以使用脚本启动该守护进程, 先找到如下文件:
+
+```shell
+/etc/event.d/local-git-daemon
+```
+
+​	并添加下列脚本内容:
+
+```shell
+start on startup 
+stop on shutdown 
+exec /usr/bin/git daemon \     
+		--user=git --group=git \     
+		--reuseaddr \     
+		--base-path=/opt/git/ \     
+		/opt/git/ 
+respawn
+```
+
+​	出于安全考虑, 强烈建议使用一个对仓库拥有只读权限的用户身份来运行该守护进程. 为简便起见, 这里将像之前`git-shell`一样, 同样使用git用户来运行它.
+
+​	当你重启机器时, 你的Git守护进程将会自动启动, 并且如果进程被意外结束它会自动重新运行. 为了在不重启的情况下直接运行, 你可以运行以下命令:
+
+```shell
+initctl start local-git-daemon
+```
+
+​	在其他系统中, 你可以使用`sysvinit`系统中的`xinetd`脚本, 或者另外的方式来实现-只要你能够将其命令守护进程化并实现监控.
+
+​	接下来, 需要告诉Git哪些仓库允许基于服务器的无授权访问. 你可以在每个仓库下创建一个名为`git-daemon-export-ok`的文件来实现.
+
+```shell
+$ cd /path/to/project.git 
+$ touch git-daemon-export-ok
+```
+
+​	该文件将允许Git提供无需授权的项目访问服务. 
+
+
+
 ### Smart HTTP
+
+​	我们一般通过SSH进行授权访问, 通过git://进行无授权访问, 但还有一种协议可以同时实现以上两种方式的访问. 设置Smart HTTP一般只需要在服务器上启用一个Git自带的名为`git-http-backend`的CGI脚本. 该CGI脚本将会读取由`git fetch`或`git push`命令向HTTP URL发送的请求路径和头部信息, 来判断客户端是否支持HTTP通信(要求1.6.6版本以上). 如果CGI发现该客户端支持智能模式, 它将会以智能模式与它通信, 否则它将会回落到哑模式下.
+
+​	完成上述步骤后, 将用Apache来作为CGI的服务器. 如果还没有安装Apache, 你可以在Linux环境下执行如下或类似的命令来安装:
+
+```shell
+$ sudo apt-get install apache2 apache2-utils 
+$ a2enmod cgi alias env
+```
+
+​	该操作将会启用`mod_cgi`, `mod_alias`, `mod_env`等Apache模块, 这些模块都是使该功能正常工作所必须的.
+
+​	接下来我们要向Apache配置文件添加一些内容, 来让`git_http_backend`作为Web服务器对`/git`路径请求的处理器.
+
+```shell
+SetEnv GIT_PROJECT_ROOT /opt/git 
+SetEnv GIT_HTTP_EXPORT_ALL 
+ScriptAlias /git/ /usr/lib/git-core/git-http-backend/
+```
+
+
+
+
+
+
+
+
 
 ### GitWeb
 
