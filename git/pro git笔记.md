@@ -1795,43 +1795,209 @@ $ chmod a+x hooks/post-update
 $ git clone https://example.com/gitproject.git
 ```
 
+​	这里我们用了Apache里设置了常用的路径`/var/www/htdocs`, 不过你可以使用任何静态web服务器, 只需要把裸版本库放到正确的目录下就可以. Git的数据是以基本的静态文件形式提供的.
 
+
+
+​	通常会在可以==提供读写的智能HTTP服务==和简单的==只读的哑HTTP服务==之间选一个. 极少会将二者混合提供服务. 
 
 
 
 ##### 优点
 
+​	以下只关注智能HTTP协议的优点.
+
+- clone, push, pull等不同访问方式只需要一个URL
+- 服务器只在需要授权时提示输入授权信息
+- 使用HTTPS协议时, 可以给传输的数据加密, 甚至可以让客户端使用指定的SSL证书
+
 
 
 ##### 缺点
+
+- 在一些服务器上, 架设HTTP/S协议的服务端会比SSH协议的棘手一些
+- 管理凭证会比使用SSH密钥认证麻烦一些
+
+
 
 #### SSH协议
 
+​	架设Git服务器常用SSH协议作为传输协议. 因为大多数环境已支持通过SSH访问. 即使没有也比较容易架设. SSH协议也是一个验证授权的网络协议.
+
+​	通过SSH协议克隆版本库, 需要指定一个`ssh://`的URL:
+
+```shell
+$ git clone ssh://user@server/project.git
+```
+
+​	或者使用一个简短的scp式的写法:
+
+```shell
+$ git clone user@server:project.git
+```
+
+​	也可以不指定用户, Git会使用当前登录的用户名.
+
+
+
 ##### 优点
 
+- SSH架设相对简单. SSH守护进程很常见, 多数管理员都有使用经验, 并且多数操作系统都包含了它及相关的管理工具.
+- 通过SSH访问是安全的. 所有传输数据都要经过授权和加密.
+- 高效, 在传输前也会尽量压缩数据.
+
+
+
 ##### 缺点
+
+- 不能通过它实现匿名访问. 即便只是读取数据, 使用者也要有通过SSH访问你的主机的权限, 这使得SSH协议不利于开源项目.
+- 如果你只在公司网络使用, SSH协议可能是你唯一要用到的协议.
+- 如果你要同时提供匿名只读访问和SSH协议, 那么除了架设SSH服务以外, 还得架设一个可以让其他人访问的服务.
+
+
 
 #### Git协议
 
+​	Git里有一个特殊的守护进程, 它监听一个特定的端口(9418), 类似于SSH服务, 但访问无需任何授权. 要让版本库支持Git协议, 需要先创建一个`git-daemon-export-ok`文件, 它是Git协议守护进程为这个版本库提供服务的必要条件, 但是除此之外, 没有任何安全措施. 要么谁都可以克隆这个版本库, 要么谁都不能. 这意味着, 通常不能通过Git协议推送. 由于没有授权机制, 一旦开放推送操作, 意味着网络上知道这个项目URL的人都可以向项目推送数据.
+
+
+
 ##### 优点
 
+- Git协议是Git使用的网络传输协议里最快的.
+- 它使用与SSH相同的数据传输机制, 但是省去了加密和授权的开销.
+
+
+
 ##### 缺点
+
+- 缺乏授权机制.
+- Git协议也许是最难架设的. 它要求有自己的守护进程, 这就要配置`xinetd`或者其他的程序, 这些工作并不简单.
+- 它还要求防火墙开放9418端口, 但是企业防火墙一般不会开放这个非标准端口. 大型企业的防火墙通常会封锁这个端口.
 
 
 
 ### 在服务器上搭建Git
 
+​	以下示例在Linux服务器上演示.
+
+​	在开始架设Git服务器前, 需要把现有仓库导出为裸仓库, 即一个不包含当前工作目录的仓库. 这只需要在clone命令加上`--bare`选项. 按照惯例, 裸仓库目录名以`.git`结尾:
+
+```shell
+$ git clone --bare my_project my_project.git
+Cloning into bare repository 'my_project.git'...
+done.
+```
+
+​	现在, 你的`my_project.git`目录中应该有Git目录的副本了.
+
+​	整体上效果大致相当于
+
+```shell
+$ cp -Rf my_project/.git my_project.git
+```
+
+​	
+
 #### 把裸仓库放到服务器上
+
+​	现在要做的就是把裸仓库放到服务器上并设置你的协议. 假设一个域名为`git.example.com`的服务器已经架设好, 并可以通过SSH连接, 你想把所有的Git仓库放在`/opt/git`目录下. 假设服务器上存在`/opt/git/`目录, 你可以通过以下命令复制你的裸仓库来创建一个新仓库:
+
+```shell
+$ scp -r my_project.git user@git.example.com:/opt/git
+```
+
+​	此时, 其他通过SSH连接这台服务器并对`/opt/git`目录拥有可读权限的使用者, 通过运行以下命令就可以克隆你的仓库.
+
+```shell
+$ git clone user@git.example.com:/opt/git/my_project.git
+```
+
+​	如果一个用户, 通过使用SSH连接到一个服务器, 并且对`/opt/git/my_project.git`目录拥有可写权限, 那么他将自动拥有推送权限.
+
+​	如果到该项目目录中运行`git init`命令, 并加上`--shared`选项, 那么Git会自动修改该仓库目录的组权限为可写.
+
+```shell
+$ ssh user@git.example.com
+$ cd /opt/git/my_project.git
+$ git init --bare --shared
+```
+
+​	由此可见, 根据现有的Git仓库创建一个裸仓库, 然后把它放上你和协作者都有SSH访问权的服务器是多么容易. 现在你们已经准备好在同一项目上开展合作了.
+
+​	以上的确是架设一个几个人拥有连接权的Git服务的全部, 只要在服务器上加入可以用SSH登录的账号, 然后把裸仓库放在大家都有读写权限的地方. 这就是一切, 无需更多. 
+
+​	接下来了解一些更复杂的扩展. 如避免为每一个用户建立一个账户, 给仓库添加公共读取权限, 架设网页界面等.
+
+
 
 #### 小型安装
 
+​	架设Git服务最复杂的地方在于用户管理. 如果需要仓库对特定的用户可读, 而给另一部分用户读写权限, 那么访问和许可安排就会比较困难.
+
+
+
 ##### SSH连接
+
+​	如果已经有一台所有开发者都可以用SSH连接的服务器, 架设Git仓库就十分简单了. 如果想在你的仓库上设置更复杂的访问控制权限, 只要使用服务器操作系统的普通的文件系统权限就行了.
+
+​	如果需要团队里每个人都对仓库有写权限. 第一个就是给团队里每个人创建账号, 这种方法很直接但也很麻烦. 你应该不会想为每一个人运行一次`adduser`并且设置临时密码.
+
+​	第二个办法是在主机上建立一个git账户, 让每个需要写权限的人发送一个SSH公钥, 然后将其加入git账户的`~/.ssh/authorized_keys`文件. 这样所有人都将通过git账户访问主机. 这一点也不会影响提交的数据, 因为访问主机用的身份不会影响提交对象的提交者信息.
+
+​	另一个办法是让SSH服务器通过某个LDAP服务, 或者其他已经设定好的集中授权机制, 来进行授权. 只要每个用户可以获得主机的shell访问权限, 任何SSH授权机制你都可视为是有效的.
 
 
 
 ### 生成SSH公钥
 
+​	许多Git服务器都是用SSH公钥进行认证. 为了向Git服务器提供SSH公钥, 如果某系统用户尚未拥有密钥, 必须事先为其生成一份. 
+
+​	首先, 确认自己是否拥有密钥. 默认情况下, 用户的SSH密钥存储在其`~/.ssh`目录下. 进入该目录并列出其中内容, 你便可以快速确认自己是否拥有密钥:
+
+```shell
+$ cd ~/.ssh
+$ ls
+authorized_keys2 id_dsa known_hosts
+config id_dsa.pub
+```
+
+​		我们需要寻找一对以`id-dsa`或`id_rsa`名为的文件, 其中一个带有`.pub`扩展名. `.pub`文件是你的公钥, 另一个是私钥. 如果找不到这样的文件, 你可以通过`ssh-keygen`程序来创建它们. 在Linux/Mac系统中, `ssh-keygen`随SSH软件包提供, 在Windows上, 该程序包含于MSysGit软件包中.
+
+```shell
+$ ssh-keygen
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/schacon/.ssh/id_rsa):
+Created directory '/home/schacon/.ssh'.
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /home/schacon/.ssh/id_rsa.
+Your public key has been saved in /home/schacon/.ssh/id_rsa.pub.
+The key fingerprint is:
+d0:82:24:8e:d7:f1:bb:9b:33:53:96:93:49:da:9b:e3 schacon@mylaptop.local
+```
+
+​	首先, `ssh-keygen`会确认密钥的存储位置(默认是`.ssh/id_rsa`), 然后它会要按求你输入两次密钥口令. 如果你不想在使用密钥时输入口令, 将其留空即可.
+
+​	 现在, 用户需要将的得到的公钥发送给Git服务器管理员即可. 公钥看起来是这样的:
+
+```shell
+$ cat ~/.ssh/id_rsa.pub
+ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAklOUpkDHrfHY17SbrmTIpNLTGK9Tjom/BWDSU
+GPl+nafzlHDTYW7hdI4yZ5ew18JH4JW9jbhUFrviQzM7xlELEVf4h9lFX5QVkbPppSwg0cda3
+Pbv7kOdJ/MTyBlWXFCR+HAo3FXRitBqxiX1nKhXpHAZsMciLq8V6RjsNAQwdsdMFvSlVK/7XA
+t3FaoJoAsncM1Q9x5+3V0Ww68/eIFmb1zuUFljQJKprrX88XypNDvjYNby6vw/Pb0rwert/En
+mZ+AW4OZPnTPI89ZPmVMLuayrD2cE86Z/il8b+gw3r3+1nKatmIkjn2so1d01QraTlMqVSsbx
+NrRFi9wrf+M7Q== schacon@mylaptop.local
+```
+
+
+
 ### 配置服务器
+
+​	接下来看看如何配置服务器端的SSH访问.
+
+
 
 ### Git守护进程
 
