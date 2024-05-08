@@ -2156,11 +2156,39 @@ SetEnv GIT_HTTP_EXPORT_ALL
 ScriptAlias /git/ /usr/lib/git-core/git-http-backend/
 ```
 
+​	如果留空`GIT_HTTP_EXPORT_ALL`这个环境变量, Git将只对无授权客户端提供带`git-daemon-export-ok`文件的版本库, 就像Git守护进程一样.
 
+​	接着需要让Apache接受通过该路径的请求, 添加如下的内容至Apache配置文件:
 
+```shell
+<Directory "/usr/lib/git-core*">
+	Options ExecCGI Indexes
+	Order allow,deny
+	Allow from all
+	Require all granted
+</Directory>
+```
 
+​	最后, 如果想实现写操作授权验证, 使用如下的未授权屏蔽配置即可:
 
+```shell
+<LocationMatch "^/git/.*/git-receive-pack$">
+	AuthType Basic
+	AuthName "Git Access"
+	AuthUserFile /opt/git/.htpasswd
+	Require valid-user
+</LocationMatch>
+```
 
+​	这需要你创建一个包含所有合法用户密码的`.htaccess`文件. 以下是一个添加"schacon"用户到此文件的例子:
+
+```shell
+$ htdigest -c /opt/git/.htpasswd "Git Access" schacon
+```
+
+​	你可以通过许多方式添加Apache授权用户, 选择其中一种方式即可. 以上仅仅是我们可以找到的最简单的一个例子. 如果愿意的话, 你也可以通过SSL运行它, 以保证所有数据是在加密状态下进行传输的.
+
+​	主要原理就是使用一个Git附带的, 名为`git-http-backend`的CGI. 它被引用来处理协商通过HTTP发送和接收的数据. 它本身不包含任何授权功能, 但是授权功能可以在Web服务器层引用它时被轻松实现. 你可以在任何所有可以处理CGI的Web服务器上办到这点.
 
 
 
