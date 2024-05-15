@@ -2498,11 +2498,59 @@ git branch sc/ruby_client master
 
 ##### 使用`apply`命令应用补丁
 
-​	如果你收到了一个使用`git diff`或Unix `diff`命令创建的补丁, 可以使用`git apply`命令来应用. 
+​	如果你收到了一个使用`git diff`或Unix `diff`命令创建的补丁, 可以使用`git apply`命令来应用. 假设你将补丁保存在了`/tmp/patch-ruby-client.patch`中, 可以这样应用补丁:
+
+```shell
+$ git apply /tmp/patch-ruby-client.patch
+```
+
+​	这会修改==工作目录==中的文件. 它与`patch -p1`的命令来应用补丁几乎是等效的, 但是这种方式更加严格, 相对于patch来说, 它能够接受的模糊匹配更少. 它也能够处理`git diff`格式文件所描述的文件添加, 删除和重命名操作, 而`patch`则不会. 最后, `git apply`命令采用了一种全部应用, 否则就全部撤销(apply all or abort all)的模型. 而`patch`可能会导致补丁文件被部分应用. 
+
+​	在实际应用补丁前, 你还可以使用git apply来检查补丁是否可以顺利应用, 即对补丁运行`git apply --check`命令:
+
+```shell
+$ git apply --check 0001-seeing-if-this-helps-the-gem.patch
+error: patch failed: ticgit.gemspec:1
+error: ticgit.gemspec: patch does not apply
+```
+
+​	如果没有产生输出, 则该补丁可以顺利应用. 如果检查失败了, 该命令还会以一个非零的状态退出, 所以需要时你也可以在脚本中使用它.
 
 
 
 ##### 使用`am`命令应用补丁
+
+​	如果补丁的贡献者也是一个Git用户, 并且其能熟练使用`format-patch`命令来生成补丁, 这样的话你的工作会变得更加轻松, 因为这种补丁中包含了作者信息和提交信息供你参考. 如果可能的话, 请鼓励贡献者使用`format-patch`而不是`diff`来为你生成补丁. 只有对老式的补丁, 才必须使用`git apply`命令.
+
+​	要应用一个由`format-patch`命令生成的补丁, 你应该使用`git am`命令. 从技术角度看, `git am`是为了读取mbox文件而构建的, mbox是一种用来在单个文本文件中存储一个或多个电子邮件消息的简单纯文本格式. 其大致格式如下所示:
+
+```shell
+From 330090432754092d704da8e76ca5c05c198e71a8 Mon Sep 17 00:00:00 2001
+From: Jessica Smith <jessica@example.com>
+Date: Sun, 6 Apr 2008 10:17:23 -0700
+Subject: [PATCH 1/2] add limit to log function
+
+Limit log functionality to the first 20
+```
+
+​	这其实就是format-patch命令输出的开始几行. 而同时它也是有效的mbox电子邮件格式. 如果有人使用git send-email命令将补丁以电子邮件形式发送给你, 你便可以将它下载为mbox格式的文件, 之后将git am命令指向该文件, 它会应用其中包含的所有补丁. 如果你所使用的邮件客户端能够同时将多封邮件保存为mbox格式的文件, 你甚至能够将一系列补丁打包为单个mbox文件, 并利用`git am`命令将它们一次性全部应用. 
+
+​	然而, 如果贡献者将`format-patch`生成的补丁文件上传到类似Request Ticket的任务处理系统, 你可以先将其保存到本地, 之后通过`git am`来应用补丁:
+
+```shell
+$ git am 0001-limit-log-function.patch
+Applying: add limit to log function
+```
+
+
+
+
+
+
+
+
+
+
 
 #### 检出远程分支
 
