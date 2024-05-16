@@ -2542,25 +2542,173 @@ $ git am 0001-limit-log-function.patch
 Applying: add limit to log function
 ```
 
+​	补丁会被顺利地应用, 并且为你自动创建了一个新的提交. 其中的作者信息来自电子邮件头部的`From`和`Date`字段. 提交信息则取自`Subject`和邮件正文中补丁之前的内容. 比如应用上面那个mbox示例后生成的提交是这样的:
+
+```shell
+$ git log --pretty=fuller -1
+commit 6c5e70b984a60b3cecd395edd5b48a7575bf58e0
+Author: 	Jessica Smith <jessica@example.com>
+AuthorDate: Sun Apr 6 10:17:23 2008 -0700
+Commit: 	Scott Chacon <schacon@gmail.com>
+CommitDate: Thu Apr 9 09:19:06 2009 -0700
+
+	add limit to log function
 
 
+	Limit log functionality to the first 20
+```
 
+​	其中`Commit`信息表示的是应用补丁的人和应用补丁的时间. `Author`信息则表示补丁的原作者和原本的创建时间.
 
+​	有时候如果无法顺利应用补丁, 是由于你的主分支和创建补丁的分支相差较多, 也有可能是因为这个补丁依赖于其他你尚未应用的补丁. 这种情况下, `git am`进程将会报错并询问你要做什么:
 
+```shell
+$ git am 0001-seeing-if-this-helps-the-gem.patch
+Applying: seeing if this helps the gem
+error: patch failed: ticgit.gemspec:1
+error: ticgit.gemspec: patch does not apply
+Patch failed at 0001.
+When you have resolved this problem run "git am --resolved".
+If you would prefer to skip this patch, instead run "git am --skip".
+To restore the original branch and stop patching run "git am --abort".
+```
 
+​	该命令会在所有出现问题的文件内加入冲突标记, 就和发生冲突的合并或变基操作一样. 而你解决问题的手段也相似, 即手动编辑那些文件来解决冲突, 暂存新的文件, 之后运行`git am --resolved`继续应用下一个补丁:
 
+```shell
+$ (fix the file)
+$ git add ticgit.gemspec
+$ git am --resolved
+Applying: seeing if this helps the gem
+```
+
+​		如果你希望Git能够尝试以更加智能的方式解决冲突, 你可以对其传递`-3`选项来使Git尝试进行三方合并. 该选项默认并没有打开, 因为如果用于创建补丁的提交并不在你的版本库内的话, 这样做是没有用处的. 而如果你确实有那个提交的话, 比如补丁是基于某个公共提交的, 那么通常`-3`选项对于应用有冲突的补丁是更加明智的选择. 
+
+```shell
+$ git am -3 0001-seeing-if-this-helps-the-gem.patch
+Applying: seeing if this helps the gem
+error: patch failed: ticgit.gemspec:1
+error: ticgit.gemspec: patch does not apply
+Using index info to reconstruct a base tree...
+Falling back to patching base and 3-way merge...
+No changes -- Patch already applied.
+```
+
+​	比如上面这种情况, 如果没有`-3`选项的话, 这看起来像是存在一个冲突.
+
+​	如果正在利用一个mbox文件应用多个补丁, 也可以在交互模式下运行`am`命令, 这样在每个补丁之前, 它会停住询问你是否要应用该补丁:
+
+```shell
+$ git am -3 -i mbox
+Commit Body is:
+--------------------------
+seeing if this helps the gem
+--------------------------
+Apply? [y]es/[n]o/[e]dit/[v]iew patch/[a]ccept all
+```
+
+​	当与你的特性相关的所有补丁都被应用并提交到分支中之后，你就可以选择是否以及如何将其整合到更长期的分支中去了。
 
 
 
 #### 检出远程分支
 
+​	如果你的贡献者建立了自己的版本库, 并且向其中推送了若干修改, 之后将版本库的URL和包含更改的远程分支发送给你, 那么你可以将其添加为一个远程分支, 并且在本地进行合并.
+
+​	比如Jessica向你发送了一封电子邮件, 内容是在她的版本库中的`ruby-client`分支中有一个很不错的新功能, 为了测试该功能, 你可以将其添加为一个远程分支, 并且在本地进行合并.
+
+```shell
+$ git remote add jessica git://github.com/jessica/myproject.git
+$ git fetch jessica
+$ git checkout -b rubyclient jessica/ruby-client
+```
+
+​	使用这种方式的一个优点是对于维护贡献频繁的项目来说比较方便, 而如果是偶尔只提供一个补丁的项目来说, 使用电子邮件来接收可能会比较省时. 另一个优点是可以同时得到提交历史, Git会默认进行三方合并, 不需要提供`-3`选项, 也不需要担心补丁是基于某个你无法访问的提交生成的.
+
+​	对于非持续性的合作, 如果你依然想要以这种方式拉取数据的话, 可以对远程版本库的URL调用`git pull`命令, 这会执行一个一次性的抓取, 而不会将该URL存为远程引用:
+
+```shell
+$ git pull https://github.com/onetimeguy/project
+From https://github.com/onetimeguy/project
+  * branch 	HEAD -> 	FETCH_HEAD
+Merge made by recursive.
+```
+
+
+
 #### 确定引入了哪些东西
+
+​	一般来说, 你应该对该分支中所有master分支尚未包含的提交进行检查. 通过在分支名称前加入`--not`选项, 你可以排除master分支中的提交. 这和我们之前使用的`master..contrib`格式是一样的. 假设贡献者向你发送了两个补丁,  为此你创建了一个名叫`contrib`的分支并在其上应用补丁, 你可以运行:
+
+```shell
+$ git log contrib --not master
+commit 5b6235bd297351589efc4d73316f0a68d484f118
+Author: Scott Chacon <schacon@gmail.com>
+Date: 	Fri Oct 24 09:53:59 2008 -0700
+
+	seeing if this helps the gem
+	
+commit 7482e0d16d04bea79d0dba8988cc78df655f16a0
+Author: Scott Chacon <schacon@gmail.com>
+Date: 	Mon Oct 22 19:38:36 2008 -0700
+
+	updated the gemspec to hopefully work better
+```
+
+​	如果要查看每次提交所引入的具体修改, 你应该记得可以给`git log`命令传递`-p`选项, 这样它会在每次提交后面附加对应的差异(diff).
+
+​	而要查看将该特性分支与另一个分支合并的完整diff, 你可能需要使用一个有些奇怪的技巧来得到正确的结果. 你可能会想到这种方式:
+
+```shell
+git diff master
+```
+
+​	这个命令会输出一个diff, 但它可能并不是我们想要的. 尤其在创建特性分支之后, `master`向前移动了, 那么获得的结果就会明显不对. 这是因为Git会直接将该特性分支与`master`分支的最新提交快照进行比较.
+
+​	所以我们应该让Git对特性分支上最新的提交与该分支与master分支的首个公共祖先进行比较.
+
+​	从技术的角度讲, 可以以手工的方式找出公共祖先, 并对其显式运行diff命令:
+
+```shell
+$ git merge-base contrib master
+36c7dba2c95e6bbb78dfa822519ecfec6e1ca649
+$ git diff 36c7db
+```
+
+​	不过这种做法比较麻烦, 所以Git提供了一种比较便捷的方式: 三点语法. 就可以使得该分支的最新提交与两个分支的共同祖先进行比较:
+
+```shell
+$ git diff master...contrib
+```
+
+​	
 
 #### 将贡献的工作整合进来
 
+​	整合时, 首先要考虑的问题是采用怎样的总体工作流程来维护你的项目.
+
+
+
 ##### 合并工作流
 
+​	一种非常简单的工作流会直接将工作合并进入`master`分支. 
+
+​	在更重要的项目中, 你可能会使用==两阶段合并循环==. 即维护两个长期分支, 分别是`master`和`develop`, `master`分支只会在一个非常稳定的版本发布时才会更新, 而所有的新代码会首先整合进入`develop`分支. 你定期将这两个分支推送到公共版本库中. 每次需要合并新的特性分支时, 都应该合并进入`develop`分支. 当打标签发布的时候, 只需要将`master`分支快进到已经稳定的`develop`分支.
+
+![image-20240516162902108](assets/image-20240516162902108.png)
+
+![image-20240516162917279](assets/image-20240516162917279.png)
+
+![image-20240516162935063](assets/image-20240516162935063.png)
+
+​	这样当人们克隆你的项目之后, 既可以检出master分支以构建最新的稳定版本并保持更新, 也可以检出包含更多新东西的develop分支. 你当然也可以扩展这个概念, 在合并进develop分之前, 再加一个整合分支.
+
+
+
 ##### 大项目合并工作流
+
+
+
 
 ##### 变基与拣选工作流
 
