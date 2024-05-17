@@ -2707,16 +2707,125 @@ $ git diff master...contrib
 
 ##### 大项目合并工作流
 
+​	Git项目包含四个长期分支:
+
+- master
+- next
+- pu(用于新工作, proposed updates)
+- maint(用于维护性向后移至工作, maintenance backports)
+
+![image-20240517101346752](assets/image-20240517101346752.png)
+
+​	如果特性分支需要更多工作, 它则会被并入`pu`分支. 当它们完全稳定后, 会被再次并入`master`分支. 这意味着`master`分支始终在进行快进. `next`分支偶尔会变基, 而`pu`分支的变基比较频繁:
+
+![image-20240517102003868](assets/image-20240517102003868.png)
+
+​	当特性分支最终被并入`master`分支后, 便会被从版本库中删除掉. Git项目还有一个从上一次发布中派生出来的`maint`分支来提供向后移植过来的补丁以供发布维护更新.
 
 
 
 ##### 变基与拣选工作流
 
+​	为了保持线性的提交历史, 有些维护者更喜欢在master分支上对贡献过来的工作进行变基和拣选, 而不是直接将其合并. 
+
+​	另一种将引入的工作转移到其他分支的方法是拣选. Git中的拣选类似于对特定的某次提交的变基. 它会提取该提交的补丁, 之后尝试将其重新应用到当前分支上. 这种方式在你只想引入特性分支中的某个提交, 或者特性分支中只有一个提交, 而你不想运行变基时很有用. 比如目前的项目提交历史类似:
+
+![image-20240517110407581](assets/image-20240517110407581.png)
+
+​	如果你希望将提交`e43a6`拉取到master分支, 可以运行:
+
+```shell
+$ git cherry-pick e43a6fd3e94888d76779ad79fb568ed180e5fcdf
+Finished one cherry-pick.
+[master]: created a0a41a9: "More friendly message when locking the index fails."
+	3 files changed, 17 insertions(+), 3 deletions(-)
+```
+
+​	这样会拉取`e43a6`相同的更改, 但是因为应用日期不同, 你会得到一个新的提交SHA-1的值. 
+
+![image-20240517135811919](assets/image-20240517135811919.png)
+
+​	现在可以删除这个特性分支, 并丢弃不想拉入的提交.
+
+
+
 ##### Rerere
+
+​	Rerere, 即resue recorded resolution, 意思是==重用已记录的冲突解决方案==, 是一种==简化冲突解决方案==的方法. 当启用rerere时, Git将会维护一些成功合并之前和之后的镜像, 当Git发现之前已经修复过类似的冲突时, 便会使用之前的修复方案, 而不需要人为干预. 
+
+​	这个功能包含两个部分: ==一个配置选项和一个命令==. 其中的配置选项是`rerere.enabled`, 把它放在全局配置中就可以了:
+
+```shell
+$ git config --global rerere.enabled true
+```
+
+​	现在每当你进行一次需要解决冲突的合并时, 解决方案都会被记录在==缓存==中以备以后使用.
+
+​	如果你需要和rerere的缓存交互, 你可以使用`git rerere`命令. 当单独调用它时, Git会检查解决方案数据库, 尝试寻找一个和当前任一冲突相关的匹配项并解决冲突(尽管当`rerere.enabled`被设置为`true`时会自动进行).
+
+
 
 #### 为发布打标签
 
+​	当你决定进行一次发布时, 你可能想要留下一个标签, 这样在之后的任何一个提交点都可以重新创建该发布. 
+
+​	以下是一个打标签的过程:
+
+```shell
+$ git tag -s v1.5 -m 'my signed 1.5 tag'
+You need a passphrase to unlock the secret key for
+user: "Scott Chacon <schacon@gmail.com>"
+1024-bit DSA key, ID F721C45A, created 2009-02-09
+```
+
+​	在为标签签名时, 可能会遇到PGP公钥的问题.  Git项目的维护者已经解决了这一问题, 其方法是在版本库中以blob对象的形式包含他们的公钥, 并添加一个直接指向该内容的标签. 要完成这一任务, 首先你可以通过运行`gpg --list-keys`找出你所想要的key:
+
+```shell
+$ gpg --list-keys
+/Users/schacon/.gnupg/pubring.gpg
+---------------------------------
+pub 	1024D/F721C45A 2009-02-09 [expires: 2010-02-09]
+uid 			Scott Chacon <schacon@gmail.com>
+sub 	2048g/45D02282 2009-02-09 [expires: 2010-02-09]
+```
+
+​	之后你可以通过导出key并通过管道传递给`git hash-object`来直接将key导入到Git的数据库中, `git hash-object`命令会向Git中写入一个包含其内容的新blob对象, 并向你返回该blob对象的SHA-1值:
+
+```shell
+$ gpg -a --export F721C45A | git hash-object -w --stdin
+659ef797d181633c87ec71ac3f9ba29fe5775b92
+```
+
+​	既然Git中已经包含你的key的内容了, 你就可以通过指定由`hash-object`命令给出的新SHA-1来创建一个指向它的标签:
+
+```shell
+$ git tag -a maintainer-pgp-pub 659ef797d181633c87ec71ac3f9ba29fe5775b92
+```
+
+​	如果你运行`git push --tags`命令, 那么`maintainer-pgp-pub`标签将会被共享给所有人. 需要校验标签的人可以通过从数据库中直接拉取blob对象并导入到GPG中来导入PGP key:
+
+```shell
+$ git show maintainer-pgp-pub | gpg --import
+```
+
+​	人们可以使用这个key来校验所有由你签名的标签. 另外, 如果你在标签信息中包含了一些操作说明, 用户可以通过运行`git show <tag>`来获取更多关于标签校验的说明.
+
+
+
 #### 生成一个构建号
+
+​	如果你想要为提交附上一个可读的名称, 可以对其运行`git describe`命令. Git将会给出一个字符串, 它由最近的标签名, 自该标签之后的提交数目和你所描述的提交的部分SHA-1值构成:
+
+```shell
+$ git describe master
+v1.6.2-rc1-20-g8c5b85c
+```
+
+
+
+
+
+
 
 #### 准备一次发布
 
@@ -2727,124 +2836,4 @@ $ git diff master...contrib
 
 
 
-
-## GitHub
-
-
-
-
-
-### 账户的创建和配置
-
-#### SSH访问
-
-#### 头像
-
-#### 邮件地址
-
-#### 两步验证
-
-### 对项目做出贡献
-
-#### 派生(Fork)项目
-
-#### GitHub流程
-
-##### 创建合并请求
-
-##### 利用合并请求
-
-#### 合并请求的进阶用法
-
-##### 将合并请求制作成补丁
-
-##### 与上游保持同步
-
-##### 参考
-
-#### Markdown
-
-##### GitHub风格的Markdown
-
-##### 任务列表
-
-##### 摘录代码
-
-##### 引用
-
-##### 表情符号(Emoji)
-
-##### 图片
-
-### 维护项目
-
-#### 创建新的版本库
-
-#### 添加合作者
-
-#### 管理合并请求
-
-##### 邮件通知
-
-##### 在合并请求上进行合作
-
-##### 合并请求引用
-
-##### 合并请求之上的请求
-
-#### 提醒和通知
-
-##### 通知页面
-
-##### 网页通知
-
-##### 邮件通知
-
-#### 特殊文件
-
-##### README
-
-##### 贡献CONTRIBUTING
-
-#### 项目管理
-
-##### 改变默认分支
-
-##### 移交项目
-
-#### 管理组织
-
-##### 组织的基本知识
-
-##### 团队
-
-##### 审计日志
-
-### 脚本GitHub
-
-#### 钩子
-
-##### 服务
-
-##### 钩子
-
-#### GitHub API
-
-##### 基本用途
-
-在一个问题上评论
-
-修改Pull Request的状态
-
-Octokit
-
-
-
-总结
-
-
-
-
-
-## Git工具
 
