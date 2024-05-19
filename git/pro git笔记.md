@@ -2821,15 +2821,35 @@ $ git describe master
 v1.6.2-rc1-20-g8c5b85c
 ```
 
+​	这样你在导出一个快照或构建时, 可以给出一个便于人们理解的命名. 实际上, 如果你的Git是从Git自己的版本库克隆下来的, 那么`git --version`命令给出的结果是与此类似的. 如果你所描述的提交自身就有一个标签, 那么它将只会输出标签名, 没有后面两项信息.
 
-
-
+​	注意`git describe`命令只适用于有注解的标签(即使用`-a`或`-s`选项创建的标签), 所以如果你在使用`git describe`命令的话, 为了确保能为标签生成合适的名称, 打发布标签时都应该采用加注解的方式. 你也可以使用这个字符串来调用checkout或show命令, 但是这依赖于其末尾的简短SHA-1值, 因此不一定一直有效. 比如, 最近Linux内核为了保证SHA-1值对象的唯一性, 将其位数由8位扩展到了10位, 导致以前的`git describe`输出全部失效.
 
 
 
 #### 准备一次发布
 
+​	现在你可以发布一个构建了. 其中一件事情就是为那些不使用Git的可怜包们创建一个最新的快照归档. 使用`git archive`命令完成此工作:
+
+```shell
+$ git archive master --prefix='project/' | gzip > `git describe master`.tar.gz 
+$ ls *.tar.gz 
+v1.6.2-rc1-20-g8c5b85c.tar.gz
+```
+
+​	如果有人将这个压缩包压缩, 他就可以得到你的项目文件夹的最新快照. 你也可以以类似的方式创建一个zip压缩包, 但此时应该向`git archive`命令传递`--format=zip`选项:
+
+```shell
+$ git archive master --prefix='project/' --format=zip > `git describe master`.zip
+```
+
+​	现在你有了本次发布的一个tar包和一个zip包, 可以将其上传到网站或以电子邮件的形式发送给人们.
+
+
+
 #### 制作提交简报
+
+​	现在是时候通知邮件列表里那些好奇你的项目发生了什么的人了. 
 
 ### 总结
 
