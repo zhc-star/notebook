@@ -2849,11 +2849,32 @@ $ git archive master --prefix='project/' --format=zip > `git describe master`.zi
 
 #### 制作提交简报
 
-​	现在是时候通知邮件列表里那些好奇你的项目发生了什么的人了. 
+​	现在是时候通知邮件列表里那些好奇你的项目发生了什么的人了. 使用`git shortlog`命令可以快速生成一份包含从上次发布之后项目新增内容的修改日志(changelog)类文档. 它会对你给定范围内的所有提交进行总结; 比如, 你的上一次发布名称是v1.0.1, 那么下面的命令可以给出上次发布以来所有提交的总结:
+
+```shell
+$ git shortlog --no-merges master --not v1.0.1
+Chris Wanstrath (8):
+	Add support for annotated tags to Grit::Tag
+	Add packed-refs annotated tag support.
+	Add Grit::Commit#to_patch
+	Update version and History.txt
+	Remove stray `puts`
+	Make ls_tree ignore nils
+
+Tom Preston-Werner (4):
+	fix dates in history
+	dynamic version method
+	Version bump to 1.0.2
+	Regenerated gemspec for version 1.0.2
+```
+
+​	这份整洁的总结包括了自v1.0.1以来的所有提交, 并且已经按照作者分好组, 你可以通过电子邮件将其直接发送到列表中. 
+
+
 
 ### 总结
 
-
+​	现在我们已经能够自如地使用Git为项目做出贡献, 维护自己的项目或采纳其他用户的贡献了.
 
 
 
