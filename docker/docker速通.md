@@ -86,11 +86,72 @@ docker exec
 
 强制删除所有容器: docker rm -f $(docker ps -aq)
 
-目录挂载: docker run -d -p 80:80 -v /app/nghtml:/usr/share/nginx/html
+目录挂载: docker run -d -p 80:80 -v /app/nghtml:/usr/share/nginx/html --name app03 nginx
 
-卷映射: 
+卷映射: docker run -d -p 80:80 -v ngconf:/etc/nginx --name app03 nginx
+
+​					映射的位置统一放在了: /var/lib/docker/volumes/\<volume-name\>
+
+查看所有卷的命令: docker volume ls
+
+查看卷的详情: docker volume inspect ngconf
 
 
+
+
+
+##### 7.docker网络
+
+docker0网络
+
+查看容器详情: docker container inspect app1
+
+docker0作为默认网络, 不支持主机域名, 而且, 每个容器的ip地址不固定 , 导致难以便捷地访问.
+
+解决办法是: 创建自定义网络, 容器名就是稳定域名.
+
+
+
+创建自定义网络: docker network create mynet
+
+列出所有网络: docker network ls
+
+
+
+容器启动时加入自定义网络: docker run -d -p 88:80 --name app1 --network mynet nginx
+
+
+
+
+
+8.搭建redis主从集群
+
+![image-20240702225716535](./assets/image-20240702225716535.png)
+
+```sh
+docker run -d -p 6379:6379 \
+	-v /app/rd1:/bitnami/redis/data \
+	-e REDIS_REPLICATION_MODE=master \
+	-e REDIS_PASSWORD=123456 \
+	--network mynet --name reids01 \
+	bitnami/redis
+```
+
+```sh
+docker run -d -p 6380:6379 \
+	-v /app/rd2:/bitnami/redis/data \
+	-e REDIS_REPLICATION_MODE=slave \
+	-e REDIS_MASTER_HOST=redis01
+	-e REDIS_MASTER_PORT_NUMBER=6379
+	-e REDIS_MASTER_PASSWORD=123456
+	-e REDIS_PASSWORD=123456 \
+	--network mynet --name reids02 \
+	bitnami/redis
+```
+
+
+
+8.docker compose
 
 
 
