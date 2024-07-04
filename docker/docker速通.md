@@ -151,7 +151,74 @@ docker run -d -p 6380:6379 \
 
 
 
-8.docker compose
+##### 8.docker compose命令
+
+上线: docker compose -f compose.yaml up -d   (-d 以后台方式)
+
+下线: docker compose -f compose.yaml down
+
+启动: docker compose -f compose.yaml start x1 x2 x3
+
+上线是第一次创建应用并启动, 启动是之前已经上线过了, 停掉了, 再重新启动. 
+
+停止: docker compose -f compose.yaml stop x1 x3
+
+扩容: docker compose -f compose.yaml scale x2=3
+
+
+
+
+
+##### 9.compose语法
+
+顶级元素:
+
+- name		名字
+- services         服务
+- networks       网络
+- volumes        卷
+- configs          配置
+- secrets          密钥
+
+
+
+
+
+##### 10.Dockerfile
+
+FROM		 指定镜像基础环境
+
+RUN		   运行自定义命令
+
+CMD		   容器启动命令或参数
+
+LABEL	      自定义标签
+
+EXPOSE	   指定暴露端口
+
+ENV		   环境变量
+
+ADD		   添加文件到镜像
+
+COPY		 复制文件到镜像
+
+ENTRYPOINT  容器固定启动命令
+
+VOLUME	   数据卷
+
+USER		指定用户和用户组
+
+WORKDIR	指定默认工作目录
+
+ARG		  指定构建参数
+
+
+
+构建命令: docker build -f Dockerfile -t -t myjavaapp:v1.0 .
+
+
+
+
 
 
 
