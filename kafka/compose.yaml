@@ -1,4 +1,4 @@
-version: "2"
+version: "3"
 
 services:
   zookeeper1:
@@ -17,11 +17,16 @@ services:
     image: docker.io/bitnami/kafka:3.4
     ports:
       - "9092:9092"
+      - "50092:19092"
     volumes:
       - "kafka_data_1:/bitnami"
     environment:
-      - KAFKA_CFG_NODE_ID=1
+      - KAFKA_BROKER_ID=1
       - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper1:2181
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,EXTERNAL://:19092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka1:9092,EXTERNAL://localhost:50092
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=EXTERNAL:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      - ALLOW_PLAINTEXT_LISTENER=yes
     networks:
       - kafka_net
     depends_on:
@@ -30,12 +35,17 @@ services:
     container_name: kafka2
     image: docker.io/bitnami/kafka:3.4
     ports:
-      - "9093:9092"
+      - "9093:9093"
+      - "50093:19093"
     volumes:
       - "kafka_data_2:/bitnami"
     environment:
-      - KAFKA_CFG_NODE_ID=2
+      - KAFKA_BROKER_ID=2
       - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper1:2181
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9093,EXTERNAL://:19093
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka2:9093,EXTERNAL://localhost:50093
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=EXTERNAL:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      - ALLOW_PLAINTEXT_LISTENER=yes
     networks:
       - kafka_net
     depends_on:
@@ -44,16 +54,41 @@ services:
     container_name: kafka3
     image: docker.io/bitnami/kafka:3.4
     ports:
-      - "9094:9092"
+      - "9094:9094"
+      - "50094:19094"
     volumes:
       - "kafka_data_3:/bitnami"
     environment:
       - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper1:2181
-      - KAFKA_CFG_NODE_ID=3
+      - KAFKA_BROKER_ID=3
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9094,EXTERNAL://:19094
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka3:9094,EXTERNAL://localhost:50094
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=EXTERNAL:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      - ALLOW_PLAINTEXT_LISTENER=yes
     networks:
       - kafka_net
     depends_on:
       - zookeeper1
+  kafka-ui:
+    container_name: kafka-ui
+    image: provectuslabs/kafka-ui:latest
+    ports:
+      - 8080:8080
+    environment:
+      DYNAMIC_CONFIG_ENABLED: true
+      KAFKA_CLUSTERS_0_NAME: kafka-dev
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka1:9092,kafka2:9093,kafka3:9094
+      KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper1:2181
+    volumes:
+      - kafkaui-app:/etc/kafkaui
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - kafka_net
+    depends_on:
+      - kafka1
+      - kafka2
+      - kafka3
+
 
 volumes:
   zookeeper_data:
@@ -63,6 +98,8 @@ volumes:
   kafka_data_2:
     driver: local
   kafka_data_3:
+    driver: local
+  kafkaui-app:
     driver: local
     
 networks:
