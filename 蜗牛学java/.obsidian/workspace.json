@@ -1,24 +1,36 @@
 {
   "main": {
-    "id": "2ae3a7fc269d62e5",
+    "id": "60c5df2658835fb7",
     "type": "split",
     "children": [
       {
-        "id": "080e48acc122e7e4",
+        "id": "6297fbe49e39cb5c",
         "type": "tabs",
         "children": [
           {
-            "id": "bb4189273165887a",
+            "id": "d14050ca91aa8efc",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "spring security初体验.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "spring security初体验"
+              "title": "新标签页"
+            }
+          }
+        ]
+      },
+      {
+        "id": "1426817cfc8d7615",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "2c1436573eb5a6eb",
+            "type": "leaf",
+            "state": {
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "关系图谱"
             }
           }
         ]
@@ -27,15 +39,15 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "e86beaece75b6991",
+    "id": "d871c22148c2954b",
     "type": "split",
     "children": [
       {
-        "id": "2c9892725c9ff170",
+        "id": "1c92c41a557c4f61",
         "type": "tabs",
         "children": [
           {
-            "id": "f4d06ae5dc4722e5",
+            "id": "c379f95bb8412173",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -47,7 +59,7 @@
             }
           },
           {
-            "id": "817a0d774be3c13c",
+            "id": "74c18d65b1920078",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -64,7 +76,7 @@
             }
           },
           {
-            "id": "aaff252ed48346cc",
+            "id": "8e1148f1f4982ee1",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -80,15 +92,15 @@
     "width": 300
   },
   "right": {
-    "id": "4a630578e1b08f0e",
+    "id": "688ecc47c707fab8",
     "type": "split",
     "children": [
       {
-        "id": "a0a28fb2e4b542bc",
+        "id": "70374bcb8118fe11",
         "type": "tabs",
         "children": [
           {
-            "id": "bbdeb5070e4cc28f",
+            "id": "e1ce47cec8148e3f",
             "type": "leaf",
             "state": {
               "type": "backlink",
@@ -106,7 +118,7 @@
             }
           },
           {
-            "id": "2e642527b8d3382e",
+            "id": "83edabfed504bcc6",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
@@ -119,7 +131,7 @@
             }
           },
           {
-            "id": "d8763cdc6086eae8",
+            "id": "b0d591f0910e64c6",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -132,7 +144,7 @@
             }
           },
           {
-            "id": "0e4bc05e2967ed49",
+            "id": "a95b47f3fd30396e",
             "type": "leaf",
             "state": {
               "type": "outline",
@@ -150,18 +162,18 @@
   },
   "left-ribbon": {
     "hiddenItems": {
-      "canvas:新建白板": false,
       "switcher:打开快速切换": false,
       "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
       "daily-notes:打开/创建今天的日记": false,
       "templates:插入模板": false,
       "command-palette:打开命令面板": false
     }
   },
-  "active": "bb4189273165887a",
+  "active": "c379f95bb8412173",
   "lastOpenFiles": [
-    "跨域.md",
-    "spring security初体验.md",
-    "spring security与spring mvc的过滤器.md"
+    "juc",
+    "创建链接.md",
+    "欢迎.md"
   ]
 }
