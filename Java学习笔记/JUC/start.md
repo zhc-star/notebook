@@ -1,0 +1,40 @@
+```java
+/* Java thread status for tools,  
+ * initialized to indicate thread 'not yet started' */  
+private volatile int threadStatus = 0;
+
+/* The group of this thread */  
+private ThreadGroup group;
+
+public synchronized void start() {  
+    /**  
+     * This method is not invoked for the main method thread or "system"     * group threads created/set up by the VM. Any new functionality added     * to this method in the future may have to also be added to the VM.     *     * A zero status value corresponds to state "NEW".     */    if (threadStatus != 0)  
+        throw new IllegalThreadStateException();  
+  
+    /* Notify the group that this thread is about to be started  
+     * so that it can be added to the group's list of threads     * and the group's unstarted count can be decremented. */    group.add(this);  
+  
+    boolean started = false;  
+    try {  
+        start0();  
+        started = true;  
+    } finally {  
+        try {  
+            if (!started) {  
+                group.threadStartFailed(this);  
+            }  
+        } catch (Throwable ignore) {  
+            /* do nothing. If start0 threw a Throwable then  
+              it will be passed up the call stack */        }  
+    }  
+
+```
+
+  上面是java8中启动一个线程的`start()`方法. 该方法的代码量很少, 可以清晰的看到, 启动一个线程经过如下几步:
+  
+1. `start()`方法由[[synchronized]]关键字修饰, 因此执行该方法执行时是线程安全的;
+2. 判断`threadStatus`值是否为0, 如果为0才可以继续启动, 否则抛出`IllegalThreadStateException`异常;
+3. 执行[[ThreadGroup]]线程组对象的`add(Thread t)`方法;
+4. 设置`started`标志, 默认`false`;
+5. 调用jni的`start0()`方法, 该方法执行成功则将`started`设置为`true`, 若执行失败, 则将异常抛出;
+6. 最后如果`started`值为`false`, 则执行[[ThreadGroup]]线程组对象的`threadStartFailed(Thread t)`方法.

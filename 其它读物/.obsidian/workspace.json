@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "4d51da4efea004b5",
+        "id": "92775a324aad614e",
         "type": "tabs",
         "children": [
           {
-            "id": "6f500f519f0af6be",
+            "id": "232afe0d9abe88fa",
             "type": "leaf",
             "state": {
               "type": "empty",
@@ -169,8 +169,9 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "33a569b4153a37af",
+  "active": "232afe0d9abe88fa",
   "lastOpenFiles": [
+    "conflict-files-obsidian-git.md",
     "过于喧嚣的孤独/摘抄.md",
     "恋爱的犀牛/恋爱的犀牛.pdf",
     "过于喧嚣的孤独",
