@@ -1,56 +1,37 @@
 {
   "main": {
-    "id": "c050cdf2b16b1ce1",
+    "id": "37764320924766a0",
     "type": "split",
     "children": [
       {
-        "id": "cc3062dd0af87946",
+        "id": "47c9fd2e39e5a7fb",
         "type": "tabs",
         "children": [
           {
-            "id": "5cfe49ba902f24d7",
+            "id": "10a1a99cdf2bdd1d",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "JUC/start().md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "start()"
-            }
-          },
-          {
-            "id": "499ee6ce8aeb8561",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "JUC/Future.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Future"
+              "title": "新标签页"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
   },
   "left": {
-    "id": "8a80bbb22c0613a6",
+    "id": "c2081ee5ee786fc3",
     "type": "split",
     "children": [
       {
-        "id": "fc708c1178f21903",
+        "id": "fbaa5de95877bfd9",
         "type": "tabs",
         "children": [
           {
-            "id": "7da714cbde70f05c",
+            "id": "eeb368108fc9c9bb",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -62,7 +43,7 @@
             }
           },
           {
-            "id": "815ca303d5fe2c69",
+            "id": "6de9b8ff2ca38fbc",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -79,7 +60,7 @@
             }
           },
           {
-            "id": "d2cb47d77dae1a83",
+            "id": "c154d46ec514edb6",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -92,23 +73,22 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 300
   },
   "right": {
-    "id": "2944260d770be0b8",
+    "id": "d4c464701b05b68b",
     "type": "split",
     "children": [
       {
-        "id": "0abf082d7cccd8e0",
+        "id": "44196f61066df116",
         "type": "tabs",
         "children": [
           {
-            "id": "708c90319f5654aa",
+            "id": "49c7f2dca0e200ab",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "JUC/start.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -118,25 +98,24 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "start 的反向链接列表"
+              "title": "反向链接"
             }
           },
           {
-            "id": "ec1e7657e831d236",
+            "id": "0f04f50716d37b5d",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "JUC/start.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "start 的出链列表"
+              "title": "出链"
             }
           },
           {
-            "id": "c0685b6da81f4bad",
+            "id": "b83a02d20f2ff0cc",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -149,33 +128,21 @@
             }
           },
           {
-            "id": "605ca6d32a8e0c42",
+            "id": "33442545e17d71f9",
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "JUC/start.md"
-              },
-              "icon": "lucide-list",
-              "title": "start 的大纲"
-            }
-          },
-          {
-            "id": "c0dfa32d69ac2929",
-            "type": "leaf",
-            "state": {
-              "type": "git-view",
               "state": {},
-              "icon": "git-pull-request",
-              "title": "Source Control"
+              "icon": "lucide-list",
+              "title": "大纲"
             }
           }
-        ],
-        "currentTab": 4
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 322.5
+    "width": 300,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -184,20 +151,9 @@
       "canvas:新建白板": false,
       "daily-notes:打开/创建今天的日记": false,
       "templates:插入模板": false,
-      "command-palette:打开命令面板": false,
-      "obsidian-git:Open Git source control": false,
-      "obsidian-excalidraw-plugin:新建绘图文件": false
+      "command-palette:打开命令面板": false
     }
   },
-  "active": "499ee6ce8aeb8561",
-  "lastOpenFiles": [
-    "JUC/start().md",
-    "JUC/Future.md",
-    "JUC/synchronized.md",
-    "JUC/ThreadGroup.md",
-    "未命名",
-    "JUC",
-    "欢迎.md",
-    "创建链接.md"
-  ]
+  "active": "10a1a99cdf2bdd1d",
+  "lastOpenFiles": []
 }
