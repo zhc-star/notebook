@@ -8,20 +8,6 @@
         "type": "tabs",
         "children": [
           {
-            "id": "5cfe49ba902f24d7",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "JUC/start().md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "start()"
-            }
-          },
-          {
             "id": "499ee6ce8aeb8561",
             "type": "leaf",
             "state": {
@@ -33,6 +19,19 @@
               },
               "icon": "lucide-file",
               "title": "Future"
+            }
+          },
+          {
+            "id": "87d17a67780aacc0",
+            "type": "leaf",
+            "state": {
+              "type": "diff-view",
+              "state": {
+                "file": "Java学习笔记/JUC/1. start().md",
+                "staged": false
+              },
+              "icon": "git-pull-request",
+              "title": "Diff View (1. start())"
             }
           }
         ],
@@ -189,9 +188,13 @@
       "obsidian-excalidraw-plugin:新建绘图文件": false
     }
   },
-  "active": "499ee6ce8aeb8561",
+  "active": "87d17a67780aacc0",
   "lastOpenFiles": [
+    "JUC/2. Runnable接口.md",
+    "JUC/1. start().md",
     "JUC/start().md",
+    "conflict-files-obsidian-git.md",
+    "JUC/3. Future接口.md",
     "JUC/Future.md",
     "JUC/synchronized.md",
     "JUC/ThreadGroup.md",
