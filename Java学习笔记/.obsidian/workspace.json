@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "JUC/14. 可重入锁(递归锁).md",
+                "file": "JUC/15. 死锁及排查.md",
                 "mode": "source",
-                "source": false
+                "source": true
               },
               "icon": "lucide-file",
-              "title": "14. 可重入锁(递归锁)"
+              "title": "15. 死锁及排查"
             }
           }
         ]
@@ -176,20 +176,28 @@
   },
   "active": "87326cfd7b31f128",
   "lastOpenFiles": [
-    "设计模式/观察者模式.md",
-    "JUC/6. Callable接口.md",
+    "JUC/14. 可重入锁(递归锁).md",
+    "JUC/15. 死锁及排查.md",
+    "java新特性/java8/1. 函数式接口.md",
+    "JUC/13. 公平锁与非公平锁.md",
+    "JUC/4. RunnableFuture接口.md",
     "JUC/2. Runnable接口.md",
+    "JUC/5. FutureTask实现类.md",
     "JUC/7. CompletableFuture类.md",
     "JUC/9. ForkJoinPool线程池.md",
-    "JUC/13. 公平锁与非公平锁.md",
+    "JUC/10. CompletableFuture中join()和get()的区别.md",
+    "JUC/11. 乐观锁与悲观锁.md",
+    "JUC/8. CompletionStage接口.md",
+    "JUC/6. Callable接口.md",
+    "JUC/3. Future接口.md",
+    "JUC/1. start()方法.md",
+    "设计模式/观察者模式.md",
     "JVM虚拟机/1. 同步指令.md",
     "conflict-files-obsidian-git.md",
     "JVM",
     "JUC/ReentrantLock类.md",
     "JUC/AQS.md",
-    "JUC/14. 可重入锁(递归锁).md",
     "JUC/12. synchronized关键字.md",
-    "java新特性/java8/1. 函数式接口.md",
     "中间件",
     "java新特性/java8",
     "源码系列Spring",
@@ -200,17 +208,9 @@
     "中间件/nacos",
     "中间件/nginx",
     "JUC/ThreadGroup类.md",
-    "JUC/11. 乐观锁与悲观锁.md",
     "JUC/Executor接口.md",
     "JUC/终极任务, 手写线程池.md",
-    "JUC/10. CompletableFuture中join()和get()的区别.md",
-    "JUC/8. CompletionStage接口.md",
-    "JUC/5. FutureTask实现类.md",
-    "JUC/3. Future接口.md",
-    "JUC/1. start()方法.md",
     "java新特性/java8/2. stream流.md",
-    "JUC/4. RunnableFuture接口.md",
-    "JUC/1. start().md",
-    "JUC/synchronized.md"
+    "JUC/1. start().md"
   ]
 }
