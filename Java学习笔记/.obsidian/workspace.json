@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "14c3b73e46e92f77",
+        "id": "ba0a134ebd1a4b20",
         "type": "tabs",
         "children": [
           {
-            "id": "87326cfd7b31f128",
+            "id": "e7dc59616b9948f5",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -77,7 +77,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 298.5
   },
   "right": {
     "id": "2944260d770be0b8",
@@ -93,7 +93,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "设计模式/观察者模式.md",
+                "file": "JUC/14. 可重入锁(递归锁).md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -103,7 +103,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "观察者模式 的反向链接列表"
+              "title": "14. 可重入锁(递归锁) 的反向链接列表"
             }
           },
           {
@@ -112,12 +112,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "设计模式/观察者模式.md",
+                "file": "JUC/14. 可重入锁(递归锁).md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "观察者模式 的出链列表"
+              "title": "14. 可重入锁(递归锁) 的出链列表"
             }
           },
           {
@@ -139,10 +139,10 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "设计模式/观察者模式.md"
+                "file": "JUC/start.md"
               },
               "icon": "lucide-list",
-              "title": "观察者模式 的大纲"
+              "title": "start 的大纲"
             }
           },
           {
@@ -160,7 +160,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 328.5
+    "width": 322.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -174,43 +174,40 @@
       "obsidian-excalidraw-plugin:新建绘图文件": false
     }
   },
-  "active": "87326cfd7b31f128",
+  "active": "e7dc59616b9948f5",
   "lastOpenFiles": [
-    "设计模式/观察者模式.md",
-    "JUC/6. Callable接口.md",
-    "JUC/2. Runnable接口.md",
-    "JUC/7. CompletableFuture类.md",
-    "JUC/9. ForkJoinPool线程池.md",
-    "JUC/13. 公平锁与非公平锁.md",
     "JVM虚拟机/1. 同步指令.md",
-    "conflict-files-obsidian-git.md",
-    "JVM",
-    "JUC/ReentrantLock类.md",
-    "JUC/AQS.md",
+    "JVM虚拟机",
+    "JUC/13. 公平锁与非公平锁.md",
     "JUC/14. 可重入锁(递归锁).md",
+    "JUC/AQS.md",
     "JUC/12. synchronized关键字.md",
+    "JUC/5. FutureTask实现类.md",
+    "JUC/ReentrantLock类.md",
+    "JVM/1. 同步指令.md",
     "java新特性/java8/1. 函数式接口.md",
-    "中间件",
-    "java新特性/java8",
-    "源码系列Spring",
-    "源码系列Mybatis",
-    "线程池&线程",
-    "中间件/spring",
-    "分布式事务",
-    "中间件/nacos",
-    "中间件/nginx",
+    "java新特性/java8/2. stream流.md",
+    "设计模式/观察者模式.md",
     "JUC/ThreadGroup类.md",
-    "JUC/11. 乐观锁与悲观锁.md",
     "JUC/Executor接口.md",
     "JUC/终极任务, 手写线程池.md",
+    "JUC/11. 乐观锁与悲观锁.md",
     "JUC/10. CompletableFuture中join()和get()的区别.md",
+    "JUC/9. ForkJoinPool线程池.md",
     "JUC/8. CompletionStage接口.md",
-    "JUC/5. FutureTask实现类.md",
-    "JUC/3. Future接口.md",
-    "JUC/1. start()方法.md",
-    "java新特性/java8/2. stream流.md",
+    "JUC/7. CompletableFuture类.md",
+    "JUC/6. Callable接口.md",
     "JUC/4. RunnableFuture接口.md",
-    "JUC/1. start().md",
-    "JUC/synchronized.md"
+    "JUC/3. Future接口.md",
+    "JUC/2. Runnable接口.md",
+    "JUC/1. start()方法.md",
+    "JVM",
+    "java新特性/java8",
+    "java新特性",
+    "java8新特性/1. 函数式接口.md",
+    "java8新特性/2. stream流.md",
+    "java8新特性",
+    "设计模式",
+    "JUC"
   ]
 }
