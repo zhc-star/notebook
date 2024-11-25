@@ -20,8 +20,22 @@
               "icon": "lucide-file",
               "title": "14. 可重入锁(递归锁)"
             }
+          },
+          {
+            "id": "f2de46f6b36a1928",
+            "type": "leaf",
+            "state": {
+              "type": "diff-view",
+              "state": {
+                "file": "Java学习笔记/.obsidian/workspace.json",
+                "staged": false
+              },
+              "icon": "git-pull-request",
+              "title": "Diff View (workspace.json)"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -93,7 +107,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "JUC/14. 可重入锁(递归锁).md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -103,7 +116,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "14. 可重入锁(递归锁) 的反向链接列表"
+              "title": "反向链接"
             }
           },
           {
@@ -112,12 +125,11 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "JUC/14. 可重入锁(递归锁).md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "14. 可重入锁(递归锁) 的出链列表"
+              "title": "出链"
             }
           },
           {
@@ -174,12 +186,23 @@
       "obsidian-excalidraw-plugin:新建绘图文件": false
     }
   },
-  "active": "e7dc59616b9948f5",
+  "active": "f2de46f6b36a1928",
   "lastOpenFiles": [
+    "conflict-files-obsidian-git.md",
+    "JUC/14. 可重入锁(递归锁).md",
+    "Pasted image 20241125153005.png",
+    "Pasted image 20241125153000.png",
+    "Pasted image 20241125152955.png",
+    "Pasted image 20241125152953.png",
+    "JUC/assets/image-20241125153155510.png",
+    "JUC/assets/image-20241125153141159.png",
+    "JUC/assets/image-20241125153119039.png",
+    "JUC/assets/image-20241125153053823.png",
+    "JUC/assets",
+    "JUC/15. 死锁及排查.md",
     "JVM虚拟机/1. 同步指令.md",
     "JVM虚拟机",
     "JUC/13. 公平锁与非公平锁.md",
-    "JUC/14. 可重入锁(递归锁).md",
     "JUC/AQS.md",
     "JUC/12. synchronized关键字.md",
     "JUC/5. FutureTask实现类.md",
@@ -204,8 +227,6 @@
     "JVM",
     "java新特性/java8",
     "java新特性",
-    "java8新特性/1. 函数式接口.md",
-    "java8新特性/2. stream流.md",
     "java8新特性",
     "设计模式",
     "JUC"
