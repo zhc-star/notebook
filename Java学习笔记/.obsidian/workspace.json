@@ -19,23 +19,8 @@
               "icon": "git-pull-request",
               "title": "Diff View (workspace.json)"
             }
-          },
-          {
-            "id": "c903a81a7cd6daf4",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "conflict-files-obsidian-git.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "conflict-files-obsidian-git"
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -188,7 +173,7 @@
       "obsidian-excalidraw-plugin:新建绘图文件": false
     }
   },
-  "active": "c903a81a7cd6daf4",
+  "active": "c0dfa32d69ac2929",
   "lastOpenFiles": [
     "conflict-files-obsidian-git.md",
     "JUC/21. LockSupport.md",
