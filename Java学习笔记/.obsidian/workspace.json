@@ -11,13 +11,14 @@
             "id": "9cb0d9d825518784",
             "type": "leaf",
             "state": {
-              "type": "diff-view",
+              "type": "markdown",
               "state": {
-                "file": "Java学习笔记/.obsidian/workspace.json",
-                "staged": false
+                "file": "JUC/20. 线程中断.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "git-pull-request",
-              "title": "Diff View (workspace.json)"
+              "icon": "lucide-file",
+              "title": "20. 线程中断"
             }
           }
         ]
@@ -169,14 +170,16 @@
       "daily-notes:打开/创建今天的日记": false,
       "templates:插入模板": false,
       "command-palette:打开命令面板": false,
-      "obsidian-git:Open Git source control": false,
-      "obsidian-excalidraw-plugin:新建绘图文件": false
+      "obsidian-git:Open Git source control": false
     }
   },
-  "active": "7da714cbde70f05c",
+  "active": "c0dfa32d69ac2929",
   "lastOpenFiles": [
-    "conflict-files-obsidian-git.md",
     "JUC/21. LockSupport.md",
+    "JUC/3. Future接口.md",
+    "JUC/2. Runnable接口.md",
+    "JUC/1. start()方法.md",
+    "conflict-files-obsidian-git.md",
     "JUC/20. 线程中断.md",
     "JUC/19. 无锁 - 偏向锁 - 轻量锁 - 重量锁.md",
     "JUC/18. 无锁 - 独占锁 - 读写锁 - 邮戳锁.md",
@@ -196,7 +199,6 @@
     "java新特性/java8/1. 函数式接口.md",
     "JUC/13. 公平锁与非公平锁.md",
     "JUC/4. RunnableFuture接口.md",
-    "JUC/2. Runnable接口.md",
     "JUC/5. FutureTask实现类.md",
     "JUC/7. CompletableFuture类.md",
     "JUC/9. ForkJoinPool线程池.md",
@@ -204,8 +206,6 @@
     "JUC/11. 乐观锁与悲观锁.md",
     "JUC/8. CompletionStage接口.md",
     "JUC/6. Callable接口.md",
-    "JUC/3. Future接口.md",
-    "JUC/1. start()方法.md",
     "设计模式/观察者模式.md",
     "JVM虚拟机/1. 同步指令.md",
     "JVM",
