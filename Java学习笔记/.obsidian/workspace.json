@@ -176,8 +176,9 @@
   },
   "active": "9cb0d9d825518784",
   "lastOpenFiles": [
-    "JUC/1. start()方法.md",
+    "JVM虚拟机/2. volatile.md",
     "JUC/21. 3大中断方法说明.md",
+    "JUC/1. start()方法.md",
     "JUC/20. 中断协商机制.md",
     "未命名.md",
     "JUC/LockSupport.md",
@@ -210,7 +211,6 @@
     "JUC/8. CompletionStage接口.md",
     "JUC/6. Callable接口.md",
     "设计模式/观察者模式.md",
-    "JVM虚拟机/1. 同步指令.md",
     "JVM",
     "中间件",
     "java新特性/java8",
