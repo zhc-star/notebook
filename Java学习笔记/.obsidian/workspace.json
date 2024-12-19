@@ -20,8 +20,22 @@
               "icon": "lucide-file",
               "title": "2024-12-19"
             }
+          },
+          {
+            "id": "6f918edb34b64356",
+            "type": "leaf",
+            "state": {
+              "type": "diff-view",
+              "state": {
+                "file": "Java学习笔记/conflict-files-obsidian-git.md",
+                "staged": false
+              },
+              "icon": "git-pull-request",
+              "title": "Diff View (conflict-files-obsidian-git)"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -174,10 +188,11 @@
       "obsidian-excalidraw-plugin:新建绘图文件": false
     }
   },
-  "active": "7da714cbde70f05c",
+  "active": "6f918edb34b64356",
   "lastOpenFiles": [
-    "优秀博客/瞧瞧别人家的异常处理，那叫一个优雅.md",
+    "conflict-files-obsidian-git.md",
     "日记本/2024-12-19.md",
+    "优秀博客/瞧瞧别人家的异常处理，那叫一个优雅.md",
     "日记本",
     "源码系列Mybatis/delete语句int返回值丢失问题.md",
     "JUC/21. 3大中断方法说明.md",
@@ -189,7 +204,6 @@
     "JUC/LockSupport.md",
     "JUC/3. Future接口.md",
     "JUC/2. Runnable接口.md",
-    "conflict-files-obsidian-git.md",
     "JUC/19. 无锁 - 偏向锁 - 轻量锁 - 重量锁.md",
     "JUC/18. 无锁 - 独占锁 - 读写锁 - 邮戳锁.md",
     "JUC/17. 自旋锁SpinLock.md",
