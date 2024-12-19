@@ -20,22 +20,8 @@
               "icon": "lucide-file",
               "title": "2024-12-19"
             }
-          },
-          {
-            "id": "6f918edb34b64356",
-            "type": "leaf",
-            "state": {
-              "type": "diff-view",
-              "state": {
-                "file": "Java学习笔记/conflict-files-obsidian-git.md",
-                "staged": false
-              },
-              "icon": "git-pull-request",
-              "title": "Diff View (conflict-files-obsidian-git)"
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -188,7 +174,7 @@
       "obsidian-excalidraw-plugin:新建绘图文件": false
     }
   },
-  "active": "6f918edb34b64356",
+  "active": "c0dfa32d69ac2929",
   "lastOpenFiles": [
     "conflict-files-obsidian-git.md",
     "日记本/2024-12-19.md",
