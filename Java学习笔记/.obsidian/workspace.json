@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "5bc8a3bab46e4b6d",
+        "id": "df14afb5b68b09f7",
         "type": "tabs",
         "children": [
           {
-            "id": "9cb0d9d825518784",
+            "id": "52af3b4059e02b7c",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "日记本/2024-12-19.md",
+                "file": "JUC/22. LockSupport.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2024-12-19"
+              "title": "22. LockSupport"
             }
           }
         ]
@@ -174,25 +174,32 @@
       "obsidian-excalidraw-plugin:新建绘图文件": false
     }
   },
-  "active": "c0dfa32d69ac2929",
+  "active": "52af3b4059e02b7c",
   "lastOpenFiles": [
-    "conflict-files-obsidian-git.md",
+    "JUC/21. 3大中断方法说明.md",
+    "JUC/17. 自旋锁SpinLock.md",
+    "JUC/Condition.md",
+    "JUC/22. LockSupport.md",
+    "源码系列JDK/1. wait, notify, notifyall.md",
+    "源码系列JDK",
+    "JUC/线程的生命周期.md",
+    "源码系列Spring/1. 熟悉springboot的启动原理, 手写一个starter.md",
+    "JUC/ThreadGroup类.md",
+    "日记本/2024-12-20.md",
     "日记本/2024-12-19.md",
+    "conflict-files-obsidian-git.md",
     "优秀博客/瞧瞧别人家的异常处理，那叫一个优雅.md",
     "日记本",
     "源码系列Mybatis/delete语句int返回值丢失问题.md",
-    "JUC/21. 3大中断方法说明.md",
     "优秀博客",
     "JVM虚拟机/2. volatile.md",
     "JUC/1. start()方法.md",
     "JUC/20. 中断协商机制.md",
     "未命名.md",
-    "JUC/LockSupport.md",
     "JUC/3. Future接口.md",
     "JUC/2. Runnable接口.md",
     "JUC/19. 无锁 - 偏向锁 - 轻量锁 - 重量锁.md",
     "JUC/18. 无锁 - 独占锁 - 读写锁 - 邮戳锁.md",
-    "JUC/17. 自旋锁SpinLock.md",
     "JUC/16. 写锁(独占锁)与读锁(共享锁).md",
     "JUC/15. 死锁及排查.md",
     "JUC/assets/image-20241125153155510.png",
@@ -207,17 +214,11 @@
     "JUC/14. 可重入锁(递归锁).md",
     "java新特性/java8/1. 函数式接口.md",
     "JUC/13. 公平锁与非公平锁.md",
-    "JUC/4. RunnableFuture接口.md",
-    "JUC/5. FutureTask实现类.md",
-    "JUC/7. CompletableFuture类.md",
-    "JUC/9. ForkJoinPool线程池.md",
-    "JUC/10. CompletableFuture中join()和get()的区别.md",
     "JVM",
     "中间件",
     "java新特性/java8",
     "源码系列Spring",
     "源码系列Mybatis",
-    "线程池&线程",
-    "中间件/spring"
+    "线程池&线程"
   ]
 }
