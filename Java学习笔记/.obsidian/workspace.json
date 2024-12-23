@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "日记本/2024-12-20.md",
+                "file": "JVM虚拟机/2. Java内存模型.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2024-12-20"
+              "title": "2. Java内存模型"
             }
           }
         ]
@@ -176,12 +176,13 @@
   },
   "active": "ab95a7957345faa4",
   "lastOpenFiles": [
-    "conflict-files-obsidian-git.md",
     "JVM虚拟机/3. volatile.md",
-    "JVM虚拟机/2. JMM内存模型.md",
+    "JUC/线程的生命周期.md",
+    "日记本/2024-12-20.md",
+    "conflict-files-obsidian-git.md",
+    "JVM虚拟机/2. Java内存模型.md",
     "JUC/23. Condition.md",
     "日记本/2024-12-19.md",
-    "日记本/2024-12-20.md",
     "JUC/21. 3大中断方法说明.md",
     "源码系列Spring/1. 熟悉springboot的启动原理, 手写一个starter.md",
     "源码系列Spring",
@@ -192,7 +193,6 @@
     "日记本",
     "优秀博客/瞧瞧别人家的异常处理，那叫一个优雅.md",
     "优秀博客",
-    "JUC/线程的生命周期.md",
     "JUC/Condition.md",
     "JUC/22. LockSupport.md",
     "JVM虚拟机/2. volatile.md",
