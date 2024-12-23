@@ -13,20 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-<<<<<<< HEAD
                 "file": "日记本/2024-12-20.md",
-=======
-                "file": "JUC/23. Condition.md",
->>>>>>> origin/main
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-<<<<<<< HEAD
               "title": "2024-12-20"
-=======
-              "title": "23. Condition"
->>>>>>> origin/main
             }
           }
         ]
@@ -184,7 +176,10 @@
   },
   "active": "ab95a7957345faa4",
   "lastOpenFiles": [
-<<<<<<< HEAD
+    "conflict-files-obsidian-git.md",
+    "JVM虚拟机/3. volatile.md",
+    "JVM虚拟机/2. JMM内存模型.md",
+    "JUC/23. Condition.md",
     "日记本/2024-12-19.md",
     "日记本/2024-12-20.md",
     "JUC/21. 3大中断方法说明.md",
@@ -192,31 +187,17 @@
     "源码系列Spring",
     "源码系列Mybatis/delete语句int返回值丢失问题.md",
     "源码系列Mybatis",
-=======
-    "JUC/22. LockSupport.md",
-    "JUC/23. Condition.md",
-    "JVM虚拟机/1. 同步指令.md",
-    "JVM虚拟机/2. JMM内存模型.md",
-    "JVM虚拟机/3. volatile.md",
-    "JUC/21. 3大中断方法说明.md",
-    "JUC/17. 自旋锁SpinLock.md",
->>>>>>> origin/main
     "源码系列JDK/1. wait, notify, notifyall.md",
     "源码系列JDK",
     "日记本",
     "优秀博客/瞧瞧别人家的异常处理，那叫一个优雅.md",
     "优秀博客",
-<<<<<<< HEAD
     "JUC/线程的生命周期.md",
     "JUC/Condition.md",
     "JUC/22. LockSupport.md",
-    "conflict-files-obsidian-git.md",
     "JVM虚拟机/2. volatile.md",
     "JUC/20. 线程中断.md",
     "JUC/LockSupport.md",
-=======
-    "JUC/1. start()方法.md",
->>>>>>> origin/main
     "JUC/20. 中断协商机制.md",
     "JUC/21. LockSupport.md",
     "JUC/7. CompletableFuture类.md",
@@ -226,9 +207,6 @@
     "JUC/2. Runnable接口.md",
     "JUC/1. start()方法.md",
     "JUC/18. 无锁 - 独占锁 - 读写锁 - 邮戳锁.md",
-    "JUC/19. 无锁 - 偏向锁 - 轻量锁 - 重量锁.md",
-    "JUC/17. 自旋锁SpinLock.md",
-    "JUC/16. 写锁(独占锁)与读锁(共享锁).md",
     "JUC/assets/image-20241125153155510.png",
     "JUC/assets/image-20241125153141159.png",
     "JUC/assets/image-20241125153119039.png",
@@ -236,13 +214,9 @@
     "Pasted image 20241125153000.png",
     "Pasted image 20241125152955.png",
     "Pasted image 20241125152953.png",
-<<<<<<< HEAD
     "Pasted image 20241125153005.png",
     "JUC/assets",
     "JVM虚拟机",
-=======
-    "JUC/14. 可重入锁(递归锁).md",
->>>>>>> origin/main
     "JVM",
     "java新特性/java8",
     "java新特性"
