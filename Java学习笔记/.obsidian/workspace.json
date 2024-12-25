@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "918602b7144c1319",
+        "id": "de72aca2cf88039d",
         "type": "tabs",
         "children": [
           {
-            "id": "ab95a7957345faa4",
+            "id": "1b252d2bf0984404",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -77,7 +77,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 298.5
+    "width": 200
   },
   "right": {
     "id": "2944260d770be0b8",
@@ -93,7 +93,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "JUC/20. 线程中断.md",
+                "file": "设计模式/观察者模式.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -103,7 +103,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "20. 线程中断 的反向链接列表"
+              "title": "观察者模式 的反向链接列表"
             }
           },
           {
@@ -112,12 +112,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "JUC/20. 线程中断.md",
+                "file": "设计模式/观察者模式.md",
                 "linksCollapsed": false,
-                "unlinkedCollapsed": false
+                "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "20. 线程中断 的出链列表"
+              "title": "观察者模式 的出链列表"
             }
           },
           {
@@ -139,10 +139,10 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "JUC/start.md"
+                "file": "设计模式/观察者模式.md"
               },
               "icon": "lucide-list",
-              "title": "start 的大纲"
+              "title": "观察者模式 的大纲"
             }
           },
           {
@@ -160,7 +160,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 322.5
+    "width": 328.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -174,51 +174,51 @@
       "obsidian-excalidraw-plugin:新建绘图文件": false
     }
   },
-  "active": "ab95a7957345faa4",
+  "active": "1b252d2bf0984404",
   "lastOpenFiles": [
-    "JVM虚拟机/3. volatile.md",
-    "JUC/线程的生命周期.md",
-    "日记本/2024-12-20.md",
-    "conflict-files-obsidian-git.md",
-    "JVM虚拟机/2. Java内存模型.md",
     "JUC/23. Condition.md",
-    "日记本/2024-12-19.md",
+    "JVM虚拟机/2. Java内存模型.md",
+    "JUC/22. LockSupport.md",
+    "JVM虚拟机/1. 同步指令.md",
+    "JVM虚拟机/2. JMM内存模型.md",
+    "JVM虚拟机/3. volatile.md",
     "JUC/21. 3大中断方法说明.md",
-    "源码系列Spring/1. 熟悉springboot的启动原理, 手写一个starter.md",
-    "源码系列Spring",
-    "源码系列Mybatis/delete语句int返回值丢失问题.md",
-    "源码系列Mybatis",
+    "JUC/17. 自旋锁SpinLock.md",
     "源码系列JDK/1. wait, notify, notifyall.md",
     "源码系列JDK",
-    "日记本",
+    "JUC/线程的生命周期.md",
+    "源码系列Spring/1. 熟悉springboot的启动原理, 手写一个starter.md",
+    "JUC/ThreadGroup类.md",
+    "日记本/2024-12-20.md",
+    "日记本/2024-12-19.md",
+    "conflict-files-obsidian-git.md",
     "优秀博客/瞧瞧别人家的异常处理，那叫一个优雅.md",
+    "日记本",
+    "源码系列Mybatis/delete语句int返回值丢失问题.md",
     "优秀博客",
-    "JUC/Condition.md",
-    "JUC/22. LockSupport.md",
-    "JVM虚拟机/2. volatile.md",
-    "JUC/20. 线程中断.md",
-    "JUC/LockSupport.md",
-    "JUC/20. 中断协商机制.md",
-    "JUC/21. LockSupport.md",
-    "JUC/7. CompletableFuture类.md",
-    "JUC/6. Callable接口.md",
-    "JUC/5. FutureTask实现类.md",
-    "JUC/4. RunnableFuture接口.md",
-    "JUC/2. Runnable接口.md",
     "JUC/1. start()方法.md",
+    "JUC/20. 中断协商机制.md",
+    "未命名.md",
+    "JUC/3. Future接口.md",
+    "JUC/2. Runnable接口.md",
+    "JUC/19. 无锁 - 偏向锁 - 轻量锁 - 重量锁.md",
     "JUC/18. 无锁 - 独占锁 - 读写锁 - 邮戳锁.md",
+    "JUC/16. 写锁(独占锁)与读锁(共享锁).md",
+    "JUC/15. 死锁及排查.md",
     "JUC/assets/image-20241125153155510.png",
     "JUC/assets/image-20241125153141159.png",
     "JUC/assets/image-20241125153119039.png",
     "JUC/assets/image-20241125153053823.png",
+    "JUC/assets",
+    "Pasted image 20241125153005.png",
     "Pasted image 20241125153000.png",
     "Pasted image 20241125152955.png",
     "Pasted image 20241125152953.png",
-    "Pasted image 20241125153005.png",
-    "JUC/assets",
-    "JVM虚拟机",
     "JVM",
+    "中间件",
     "java新特性/java8",
-    "java新特性"
+    "源码系列Spring",
+    "源码系列Mybatis",
+    "线程池&线程"
   ]
 }
