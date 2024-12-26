@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "JVM虚拟机/2. Java内存模型.md",
+                "file": "JVM虚拟机/3. volatile.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2. Java内存模型"
+              "title": "3. volatile"
             }
           }
         ]
@@ -176,8 +176,10 @@
   },
   "active": "1b252d2bf0984404",
   "lastOpenFiles": [
-    "JUC/23. Condition.md",
     "JVM虚拟机/2. Java内存模型.md",
+    "`finalize()`.md",
+    "JUC/23. Condition.md",
+    "JVM虚拟机/4. finalize().md",
     "JUC/22. LockSupport.md",
     "JVM虚拟机/1. 同步指令.md",
     "JVM虚拟机/2. JMM内存模型.md",
@@ -203,8 +205,6 @@
     "JUC/2. Runnable接口.md",
     "JUC/19. 无锁 - 偏向锁 - 轻量锁 - 重量锁.md",
     "JUC/18. 无锁 - 独占锁 - 读写锁 - 邮戳锁.md",
-    "JUC/16. 写锁(独占锁)与读锁(共享锁).md",
-    "JUC/15. 死锁及排查.md",
     "JUC/assets/image-20241125153155510.png",
     "JUC/assets/image-20241125153141159.png",
     "JUC/assets/image-20241125153119039.png",
