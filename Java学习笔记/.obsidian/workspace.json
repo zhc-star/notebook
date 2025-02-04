@@ -20,35 +20,8 @@
               "icon": "lucide-file",
               "title": "瞧瞧别人家的异常处理，那叫一个优雅"
             }
-          },
-          {
-            "id": "4b43322a2e5dfcd6",
-            "type": "leaf",
-            "state": {
-              "type": "diff-view",
-              "state": {
-                "file": "Java学习笔记/conflict-files-obsidian-git.md",
-                "staged": false
-              },
-              "icon": "git-pull-request",
-              "title": "Diff View (conflict-files-obsidian-git)"
-            }
-          },
-          {
-            "id": "62e475b5fa81723a",
-            "type": "leaf",
-            "state": {
-              "type": "diff-view",
-              "state": {
-                "file": "Java学习笔记/conflict-files-obsidian-git.md",
-                "staged": false
-              },
-              "icon": "git-pull-request",
-              "title": "Diff View (conflict-files-obsidian-git)"
-            }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "vertical"
@@ -202,7 +175,7 @@
       "obsidian-excalidraw-plugin:新建绘图文件": false
     }
   },
-  "active": "62e475b5fa81723a",
+  "active": "c0dfa32d69ac2929",
   "lastOpenFiles": [
     "conflict-files-obsidian-git.md",
     "优秀博客/瞧瞧别人家的异常处理，那叫一个优雅.md",
