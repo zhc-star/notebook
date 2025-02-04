@@ -20,8 +20,35 @@
               "icon": "lucide-file",
               "title": "瞧瞧别人家的异常处理，那叫一个优雅"
             }
+          },
+          {
+            "id": "4b43322a2e5dfcd6",
+            "type": "leaf",
+            "state": {
+              "type": "diff-view",
+              "state": {
+                "file": "Java学习笔记/conflict-files-obsidian-git.md",
+                "staged": false
+              },
+              "icon": "git-pull-request",
+              "title": "Diff View (conflict-files-obsidian-git)"
+            }
+          },
+          {
+            "id": "62e475b5fa81723a",
+            "type": "leaf",
+            "state": {
+              "type": "diff-view",
+              "state": {
+                "file": "Java学习笔记/conflict-files-obsidian-git.md",
+                "staged": false
+              },
+              "icon": "git-pull-request",
+              "title": "Diff View (conflict-files-obsidian-git)"
+            }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -175,10 +202,15 @@
       "obsidian-excalidraw-plugin:新建绘图文件": false
     }
   },
-  "active": "c0dfa32d69ac2929",
+  "active": "62e475b5fa81723a",
   "lastOpenFiles": [
-    "优秀博客/DeepSeek-R1持续震撼硅谷：跻身竞技榜前三，创始人梁文锋采访被“拿放大镜”看.md",
+    "conflict-files-obsidian-git.md",
     "优秀博客/瞧瞧别人家的异常处理，那叫一个优雅.md",
+    "日记本/2025-01-13.md",
+    "东北证券/东北证券项目日志梳理.md",
+    "东北证券/东北证券生产问题.md",
+    "东北证券",
+    "优秀博客/DeepSeek-R1持续震撼硅谷：跻身竞技榜前三，创始人梁文锋采访被“拿放大镜”看.md",
     "日记本/2025-01-26.md",
     "日记本/2024-12-20.md",
     "未命名.md",
@@ -187,7 +219,6 @@
     "JVM虚拟机/4. finalize().md",
     "JVM虚拟机/3. volatile.md",
     "JUC/线程的生命周期.md",
-    "conflict-files-obsidian-git.md",
     "JUC/23. Condition.md",
     "日记本/2024-12-19.md",
     "JUC/21. 3大中断方法说明.md",
@@ -205,9 +236,6 @@
     "JUC/20. 线程中断.md",
     "JUC/LockSupport.md",
     "JUC/20. 中断协商机制.md",
-    "JUC/21. LockSupport.md",
-    "JUC/7. CompletableFuture类.md",
-    "JUC/6. Callable接口.md",
     "JUC/assets/image-20241125153155510.png",
     "JUC/assets/image-20241125153141159.png",
     "JUC/assets/image-20241125153119039.png",
@@ -219,7 +247,6 @@
     "JUC/assets",
     "JVM虚拟机",
     "JVM",
-    "java新特性/java8",
-    "java新特性"
+    "java新特性/java8"
   ]
 }
