@@ -20,8 +20,22 @@
               "icon": "lucide-file",
               "title": "今日待办"
             }
+          },
+          {
+            "id": "28482d915ce4a392",
+            "type": "leaf",
+            "state": {
+              "type": "diff-view",
+              "state": {
+                "file": "Java学习笔记/.obsidian/workspace.json",
+                "staged": false
+              },
+              "icon": "git-pull-request",
+              "title": "Diff View (workspace.json)"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -175,12 +189,13 @@
       "obsidian-excalidraw-plugin:新建绘图文件": false
     }
   },
-  "active": "ad147f0a050025ed",
+  "active": "28482d915ce4a392",
   "lastOpenFiles": [
+    "conflict-files-obsidian-git.md",
+    "今日待办.md",
     "复习待处理.md",
     "东北证券/东北证券项目日志梳理.md",
     "东北证券/部署情况.md",
-    "今日待办.md",
     "质押待处理.md",
     "东北代办.md",
     "东北证券/生产环境服务未能注册到nacos.md",
@@ -204,7 +219,6 @@
     "JUC/19. 无锁 - 偏向锁 - 轻量锁 - 重量锁.md",
     "JUC/18. 无锁 - 独占锁 - 读写锁 - 邮戳锁.md",
     "JUC/17. 自旋锁SpinLock.md",
-    "JUC/16. 写锁(独占锁)与读锁(共享锁).md",
     "JUC/assets/image-20241125153053823.png",
     "塔金大模型/assets/Pasted image 20250205013335.png",
     "塔金大模型/assets",
