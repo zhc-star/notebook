@@ -4,39 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "00ee8a6ef770c3ee",
+        "id": "1276669e8e024700",
         "type": "tabs",
         "children": [
           {
-            "id": "21a0bd3e95cc99a6",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "东北证券/部署情况.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "部署情况"
-            }
-          },
-          {
-            "id": "ae9788682b600302",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "融资融券业务概念/业务主流程.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "业务主流程"
-            }
-          },
-          {
-            "id": "56ed712a1417ab01",
+            "id": "ad147f0a050025ed",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -49,8 +21,7 @@
               "title": "今日待办"
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "vertical"
@@ -107,7 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 298.5
+    "width": 200
   },
   "right": {
     "id": "2944260d770be0b8",
@@ -123,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "JUC/20. 线程中断.md",
+                "file": "设计模式/观察者模式.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -133,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "20. 线程中断 的反向链接列表"
+              "title": "观察者模式 的反向链接列表"
             }
           },
           {
@@ -142,12 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "JUC/20. 线程中断.md",
+                "file": "设计模式/观察者模式.md",
                 "linksCollapsed": false,
-                "unlinkedCollapsed": false
+                "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "20. 线程中断 的出链列表"
+              "title": "观察者模式 的出链列表"
             }
           },
           {
@@ -169,10 +140,10 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "JUC/start.md"
+                "file": "设计模式/观察者模式.md"
               },
               "icon": "lucide-list",
-              "title": "start 的大纲"
+              "title": "观察者模式 的大纲"
             }
           },
           {
@@ -190,7 +161,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 322.5
+    "width": 302.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -204,52 +175,53 @@
       "obsidian-excalidraw-plugin:新建绘图文件": false
     }
   },
-  "active": "c0dfa32d69ac2929",
+  "active": "ad147f0a050025ed",
   "lastOpenFiles": [
+    "复习待处理.md",
+    "东北证券/东北证券项目日志梳理.md",
+    "东北证券/部署情况.md",
     "今日待办.md",
-    "conflict-files-obsidian-git.md",
     "质押待处理.md",
+    "东北代办.md",
+    "东北证券/生产环境服务未能注册到nacos.md",
+    "东北证券/数据库并发问题.md",
+    "融资融券业务概念/业务主流程.md",
+    "融资融券业务概念",
+    "2025-06-25.md",
+    "国泰两融.md",
+    "ab4a6d1c1557bff42ec826933b67059.png",
     "日记本/2025-06-01.md",
     "日记本/2025-04-26.md",
     "日记本/2025-04-16.md",
     "日记本/2025-02-26.md",
     "日记本/2025-02-20.md",
-    "复习待处理.md",
-    "东北证券/数据库并发问题.md",
-    "东北代办.md",
-    "融资融券业务概念/业务主流程.md",
-    "JUC/0. review1.md",
-    "东北证券/部署情况.md",
-    "融资融券业务概念",
-    "东北证券/生产环境服务未能注册到nacos.md",
-    "东北证券/东北证券生产问题.md",
-    "塔金大模型/0. 基础架构.md",
-    "塔金大模型/assets/Pasted image 20250205013335.png",
-    "JVM虚拟机/4. finalize().md",
-    "塔金大模型/assets",
-    "`finalize()`.md",
-    "JVM虚拟机/2. Java内存模型.md",
-    "JVM虚拟机/1. 同步指令.md",
-    "优秀博客/瞧瞧别人家的异常处理，那叫一个优雅.md",
-    "塔金大模型",
-    "日记本/2025-01-13.md",
-    "东北证券/东北证券项目日志梳理.md",
-    "东北证券",
-    "优秀博客/DeepSeek-R1持续震撼硅谷：跻身竞技榜前三，创始人梁文锋采访被“拿放大镜”看.md",
     "日记本/2025-01-26.md",
-    "源码系列Spring",
-    "源码系列Mybatis",
+    "日记本/2025-01-13.md",
+    "日记本/2024-12-20.md",
+    "日记本/2024-12-19.md",
+    "东北工作进度.md",
+    "JUC/20. 中断协商机制.md",
+    "JUC/19. 无锁 - 偏向锁 - 轻量锁 - 重量锁.md",
+    "JUC/18. 无锁 - 独占锁 - 读写锁 - 邮戳锁.md",
+    "JUC/17. 自旋锁SpinLock.md",
+    "JUC/16. 写锁(独占锁)与读锁(共享锁).md",
+    "JUC/assets/image-20241125153053823.png",
+    "塔金大模型/assets/Pasted image 20250205013335.png",
+    "塔金大模型/assets",
+    "塔金大模型",
+    "东北证券",
     "源码系列JDK",
     "日记本",
     "优秀博客",
     "JUC/assets/image-20241125153155510.png",
     "JUC/assets/image-20241125153141159.png",
     "JUC/assets/image-20241125153119039.png",
-    "JUC/assets/image-20241125153053823.png",
+    "JUC/assets",
+    "Pasted image 20241125153005.png",
     "Pasted image 20241125153000.png",
     "Pasted image 20241125152955.png",
     "Pasted image 20241125152953.png",
-    "Pasted image 20241125153005.png",
-    "JUC/assets"
+    "JVM",
+    "中间件"
   ]
 }
