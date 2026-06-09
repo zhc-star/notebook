@@ -33,35 +33,9 @@
               "icon": "lucide-table",
               "title": "未命名"
             }
-          },
-          {
-            "id": "d4f5fefe0e5111f1",
-            "type": "leaf",
-            "state": {
-              "type": "diff-view",
-              "state": {
-                "file": "Java学习笔记/conflict-files-obsidian-git.md",
-                "staged": false
-              },
-              "icon": "git-pull-request",
-              "title": "Diff View (conflict-files-obsidian-git)"
-            }
-          },
-          {
-            "id": "220c342d4cbe2b6a",
-            "type": "leaf",
-            "state": {
-              "type": "diff-view",
-              "state": {
-                "file": "Java学习笔记/今日待办.md",
-                "staged": true
-              },
-              "icon": "git-pull-request",
-              "title": "Diff View (今日待办)"
-            }
           }
         ],
-        "currentTab": 3
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -218,7 +192,7 @@
       "obsidian-excalidraw-plugin:新建绘图文件": false
     }
   },
-  "active": "220c342d4cbe2b6a",
+  "active": "c0dfa32d69ac2929",
   "lastOpenFiles": [
     "conflict-files-obsidian-git.md",
     "未命名.base",
