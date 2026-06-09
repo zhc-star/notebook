@@ -33,9 +33,35 @@
               "icon": "lucide-table",
               "title": "未命名"
             }
+          },
+          {
+            "id": "d4f5fefe0e5111f1",
+            "type": "leaf",
+            "state": {
+              "type": "diff-view",
+              "state": {
+                "file": "Java学习笔记/conflict-files-obsidian-git.md",
+                "staged": false
+              },
+              "icon": "git-pull-request",
+              "title": "Diff View (conflict-files-obsidian-git)"
+            }
+          },
+          {
+            "id": "220c342d4cbe2b6a",
+            "type": "leaf",
+            "state": {
+              "type": "diff-view",
+              "state": {
+                "file": "Java学习笔记/今日待办.md",
+                "staged": true
+              },
+              "icon": "git-pull-request",
+              "title": "Diff View (今日待办)"
+            }
           }
         ],
-        "currentTab": 1
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -154,13 +180,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "未命名.base",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "未命名 的大纲"
+              "title": "大纲"
             }
           },
           {
@@ -193,10 +218,12 @@
       "obsidian-excalidraw-plugin:新建绘图文件": false
     }
   },
-  "active": "0aaabdde7a74f0e8",
+  "active": "220c342d4cbe2b6a",
   "lastOpenFiles": [
-    "跟着AI学技术/JUC/跟着AI学JUC.md",
+    "conflict-files-obsidian-git.md",
     "未命名.base",
+    "今日待办.md",
+    "跟着AI学技术/JUC/跟着AI学JUC.md",
     "东北证券/部署情况.md",
     "跟着AI学技术/JUC",
     "跟着AI学技术",
@@ -225,9 +252,7 @@
     "日记本/2025-01-13.md",
     "日记本/2024-12-19.md",
     "日记本/2024-12-20.md",
-    "融资融券业务概念/业务主流程.md",
     "塔金大模型/assets/Pasted image 20250205013335.png",
-    "塔金大模型/0. 基础架构.md",
     "源码系列Tomcat",
     "融资融券业务概念",
     "塔金大模型/assets",
