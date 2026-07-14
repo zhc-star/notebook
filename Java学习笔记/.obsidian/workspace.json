@@ -25,13 +25,14 @@
             "id": "0aaabdde7a74f0e8",
             "type": "leaf",
             "state": {
-              "type": "bases",
+              "type": "markdown",
               "state": {
-                "file": "未命名.base",
-                "viewName": "表格"
+                "file": "婚礼祝福.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-table",
-              "title": "未命名"
+              "icon": "lucide-file",
+              "title": "婚礼祝福"
             }
           }
         ],
@@ -154,12 +155,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "跟着AI学技术/JUC/跟着AI学JUC.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "大纲"
+              "title": "跟着AI学JUC 的大纲"
             }
           },
           {
@@ -192,18 +194,20 @@
       "obsidian-excalidraw-plugin:新建绘图文件": false
     }
   },
-  "active": "c0dfa32d69ac2929",
+  "active": "0aaabdde7a74f0e8",
   "lastOpenFiles": [
-    "conflict-files-obsidian-git.md",
+    "笔记模版.md",
+    "婚礼祝福.md",
     "未命名.base",
+    "跟着AI学技术/JUC/目录.md",
     "今日待办.md",
     "跟着AI学技术/JUC/跟着AI学JUC.md",
+    "conflict-files-obsidian-git.md",
     "东北证券/部署情况.md",
     "跟着AI学技术/JUC",
     "跟着AI学技术",
     "论文系列/Restful/英文概念卡片.md",
     "东北证券/未命名",
-    "笔记模版.md",
     "JVM虚拟机/1. 同步指令.md",
     "优秀博客/瞧瞧别人家的异常处理，那叫一个优雅.md",
     "几个.md",
@@ -224,8 +228,6 @@
     "日记本/2025-02-20.md",
     "日记本/2025-01-26.md",
     "日记本/2025-01-13.md",
-    "日记本/2024-12-19.md",
-    "日记本/2024-12-20.md",
     "塔金大模型/assets/Pasted image 20250205013335.png",
     "源码系列Tomcat",
     "融资融券业务概念",
