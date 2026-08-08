@@ -4,25 +4,25 @@
     "type": "split",
     "children": [
       {
-        "id": "75430f0a51810ec6",
+        "id": "00ee8a6ef770c3ee",
         "type": "tabs",
         "children": [
           {
-            "id": "daa4a3b41a175d0f",
+            "id": "21a0bd3e95cc99a6",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "源码系列Spring/spring - 1.md",
+                "file": "JUC/12. synchronized关键字.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "spring - 1"
+              "title": "12. synchronized关键字"
             }
           },
           {
-            "id": "eab3955a42ce0334",
+            "id": "0aaabdde7a74f0e8",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -93,7 +93,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 298.5
   },
   "right": {
     "id": "2944260d770be0b8",
@@ -109,7 +109,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "设计模式/观察者模式.md",
+                "file": "JUC/20. 线程中断.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -119,7 +119,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "观察者模式 的反向链接列表"
+              "title": "20. 线程中断 的反向链接列表"
             }
           },
           {
@@ -128,12 +128,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "设计模式/观察者模式.md",
+                "file": "JUC/20. 线程中断.md",
                 "linksCollapsed": false,
-                "unlinkedCollapsed": true
+                "unlinkedCollapsed": false
               },
               "icon": "links-going-out",
-              "title": "观察者模式 的出链列表"
+              "title": "20. 线程中断 的出链列表"
             }
           },
           {
@@ -155,10 +155,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "设计模式/观察者模式.md"
+                "file": "跟着AI学技术/JUC/跟着AI学JUC.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "观察者模式 的大纲"
+              "title": "跟着AI学JUC 的大纲"
             }
           },
           {
@@ -176,7 +179,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 302.5
+    "width": 322.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -190,53 +193,52 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "c0dfa32d69ac2929",
+  "active": "0aaabdde7a74f0e8",
   "lastOpenFiles": [
-    "未命名.md",
+    "婚礼祝福.md",
     "conflict-files-obsidian-git.md",
+    "源码系列Spring/spring - 1.md",
+    "未命名.md",
+    "中间件/Mysql/1. 进入源码之前.md",
+    "中间件/Mysql/0. 历史与发展.md",
+    "中间件/Mysql",
+    "中间件",
+    "笔记模版.md",
+    "未命名.base",
+    "跟着AI学技术/JUC/目录.md",
+    "今日待办.md",
     "跟着AI学技术/JUC/跟着AI学JUC.md",
+    "东北证券/部署情况.md",
     "跟着AI学技术/JUC",
     "跟着AI学技术",
     "论文系列/Restful/英文概念卡片.md",
+    "东北证券/未命名",
+    "JVM虚拟机/1. 同步指令.md",
+    "优秀博客/瞧瞧别人家的异常处理，那叫一个优雅.md",
+    "几个.md",
+    "JUC/12. synchronized关键字.md",
+    "JVM虚拟机/2. Java内存模型.md",
     "论文系列/Restful/fielding_dissertation.pdf",
+    "源码系列JDK/1. wait, notify, notifyall.md",
     "论文系列/Restful",
     "论文系列",
-    "笔记模版.md",
-    "未命名.base",
-    "源码系列Spring/1. 熟悉springboot的启动原理, 手写一个starter.md",
-    "源码系列Spring/spring - 1.md",
-    "中间件/Mysql/1. 进入源码之前.md",
-    "中间件/Mysql/0. 历史与发展.md",
-    "东北证券/部署情况.md",
-    "东北代办.md",
-    "今日待办.md",
-    "质押待处理.md",
-    "复习待处理.md",
-    "塔金大模型/0. 基础架构.md",
-    "融资融券业务概念/业务主流程.md",
-    "融资融券业务概念",
-    "东北证券/东北证券项目日志梳理.md",
-    "东北证券/生产环境服务未能注册到nacos.md",
+    "优秀博客/DeepSeek-R1持续震撼硅谷：跻身竞技榜前三，创始人梁文锋采访被“拿放大镜”看.md",
     "东北证券/数据库并发问题.md",
-    "日记本/2024-12-19.md",
-    "2025-06-25.md",
-    "国泰两融.md",
-    "ab4a6d1c1557bff42ec826933b67059.png",
+    "东北证券/生产环境服务未能注册到nacos.md",
+    "东北证券/东北证券项目日志梳理.md",
     "日记本/2025-06-01.md",
     "日记本/2025-04-26.md",
     "日记本/2025-04-16.md",
     "日记本/2025-02-26.md",
-    "JUC/assets/image-20241125153053823.png",
     "塔金大模型/assets/Pasted image 20250205013335.png",
-    "塔金大模型/assets",
-    "塔金大模型",
-    "东北证券",
+    "源码系列Tomcat",
     "JUC/assets/image-20241125153155510.png",
     "JUC/assets/image-20241125153141159.png",
     "JUC/assets/image-20241125153119039.png",
-    "Pasted image 20241125153005.png",
+    "JUC/assets/image-20241125153053823.png",
     "Pasted image 20241125153000.png",
     "Pasted image 20241125152955.png",
-    "Pasted image 20241125152953.png"
+    "Pasted image 20241125152953.png",
+    "Pasted image 20241125153005.png"
   ]
 }
